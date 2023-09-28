@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "952323710384",
+    "project_id": "locker-app-41fc8",
+    "storage_bucket": "locker-app-41fc8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:952323710384:android:6a79fd4bba49be58ffca75",
+        "android_client_info": {
+          "package_name": "com.mycompany.lockerapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvX8F2WZ_9ir0cPzjM-HRjoobe8uoyv84"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

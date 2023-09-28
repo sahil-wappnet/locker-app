@@ -1,0 +1,15 @@
+io.flutter.plugins.googlesignin.google_sign_in_android-jetified-play-services-auth-20.4.1-0 /home/wappnet-52/.gradle/caches/transforms-3/1e872a2f80685e6a488770ecfb5a5bc8/transformed/jetified-play-services-auth-20.4.1/res
+io.flutter.plugins.googlesignin.google_sign_in_android-jetified-window-1.0.0-beta04-1 /home/wappnet-52/.gradle/caches/transforms-3/3547045148f823ae82ba5f00da62432e/transformed/jetified-window-1.0.0-beta04/res
+io.flutter.plugins.googlesignin.google_sign_in_android-core-1.6.0-2 /home/wappnet-52/.gradle/caches/transforms-3/448e12895481b74f12aa96a40a56e1d8/transformed/core-1.6.0/res
+io.flutter.plugins.googlesignin.google_sign_in_android-jetified-play-services-basement-18.1.0-3 /home/wappnet-52/.gradle/caches/transforms-3/45b55c87021c9ab508d82f4ad609d95c/transformed/jetified-play-services-basement-18.1.0/res
+io.flutter.plugins.googlesignin.google_sign_in_android-jetified-play-services-base-18.0.1-4 /home/wappnet-52/.gradle/caches/transforms-3/9aacd92044d3c0fced5d96d094537c9f/transformed/jetified-play-services-base-18.0.1/res
+io.flutter.plugins.googlesignin.google_sign_in_android-jetified-annotation-experimental-1.1.0-5 /home/wappnet-52/.gradle/caches/transforms-3/d5b68f2b2b74dc022302f312e278ba97/transformed/jetified-annotation-experimental-1.1.0/res
+io.flutter.plugins.googlesignin.google_sign_in_android-jetified-window-java-1.0.0-beta04-6 /home/wappnet-52/.gradle/caches/transforms-3/e35e8dc727b74800fd8b576809d7e083/transformed/jetified-window-java-1.0.0-beta04/res
+io.flutter.plugins.googlesignin.google_sign_in_android-main-7 /home/wappnet-52/.pub-cache/hosted/pub.dev/google_sign_in_android-6.1.8/android/src/main/res
+io.flutter.plugins.googlesignin.google_sign_in_android-release-8 /home/wappnet-52/.pub-cache/hosted/pub.dev/google_sign_in_android-6.1.8/android/src/release/res
+io.flutter.plugins.googlesignin.google_sign_in_android-pngs-9 /home/wappnet-52/Documents/Wappnet/locker_app/build/google_sign_in_android/generated/res/pngs/release
+io.flutter.plugins.googlesignin.google_sign_in_android-resValues-10 /home/wappnet-52/Documents/Wappnet/locker_app/build/google_sign_in_android/generated/res/resValues/release
+io.flutter.plugins.googlesignin.google_sign_in_android-rs-11 /home/wappnet-52/Documents/Wappnet/locker_app/build/google_sign_in_android/generated/res/rs/release
+io.flutter.plugins.googlesignin.google_sign_in_android-mergeReleaseResources-12 /home/wappnet-52/Documents/Wappnet/locker_app/build/google_sign_in_android/intermediates/incremental/release/mergeReleaseResources/merged.dir
+io.flutter.plugins.googlesignin.google_sign_in_android-mergeReleaseResources-13 /home/wappnet-52/Documents/Wappnet/locker_app/build/google_sign_in_android/intermediates/incremental/release/mergeReleaseResources/stripped.dir
+io.flutter.plugins.googlesignin.google_sign_in_android-merged_res-14 /home/wappnet-52/Documents/Wappnet/locker_app/build/google_sign_in_android/intermediates/merged_res/release
