@@ -5,9 +5,9 @@ com.aboutyou.dart_packages.sign_in_with_apple-jetified-annotation-experimental-1
 com.aboutyou.dart_packages.sign_in_with_apple-jetified-window-java-1.0.0-beta04-4 /home/wappnet-52/.gradle/caches/transforms-3/e35e8dc727b74800fd8b576809d7e083/transformed/jetified-window-java-1.0.0-beta04/res
 com.aboutyou.dart_packages.sign_in_with_apple-main-5 /home/wappnet-52/.pub-cache/hosted/pub.dev/sign_in_with_apple-4.3.0/android/src/main/res
 com.aboutyou.dart_packages.sign_in_with_apple-release-6 /home/wappnet-52/.pub-cache/hosted/pub.dev/sign_in_with_apple-4.3.0/android/src/release/res
-com.aboutyou.dart_packages.sign_in_with_apple-pngs-7 /home/wappnet-52/Documents/Wappnet/locker_app/build/sign_in_with_apple/generated/res/pngs/release
-com.aboutyou.dart_packages.sign_in_with_apple-resValues-8 /home/wappnet-52/Documents/Wappnet/locker_app/build/sign_in_with_apple/generated/res/resValues/release
-com.aboutyou.dart_packages.sign_in_with_apple-rs-9 /home/wappnet-52/Documents/Wappnet/locker_app/build/sign_in_with_apple/generated/res/rs/release
-com.aboutyou.dart_packages.sign_in_with_apple-mergeReleaseResources-10 /home/wappnet-52/Documents/Wappnet/locker_app/build/sign_in_with_apple/intermediates/incremental/release/mergeReleaseResources/merged.dir
-com.aboutyou.dart_packages.sign_in_with_apple-mergeReleaseResources-11 /home/wappnet-52/Documents/Wappnet/locker_app/build/sign_in_with_apple/intermediates/incremental/release/mergeReleaseResources/stripped.dir
-com.aboutyou.dart_packages.sign_in_with_apple-merged_res-12 /home/wappnet-52/Documents/Wappnet/locker_app/build/sign_in_with_apple/intermediates/merged_res/release
+com.aboutyou.dart_packages.sign_in_with_apple-pngs-7 /home/wappnet-52/Documents/Wappnet/locker-app/build/sign_in_with_apple/generated/res/pngs/release
+com.aboutyou.dart_packages.sign_in_with_apple-resValues-8 /home/wappnet-52/Documents/Wappnet/locker-app/build/sign_in_with_apple/generated/res/resValues/release
+com.aboutyou.dart_packages.sign_in_with_apple-rs-9 /home/wappnet-52/Documents/Wappnet/locker-app/build/sign_in_with_apple/generated/res/rs/release
+com.aboutyou.dart_packages.sign_in_with_apple-mergeReleaseResources-10 /home/wappnet-52/Documents/Wappnet/locker-app/build/sign_in_with_apple/intermediates/incremental/release/mergeReleaseResources/merged.dir
+com.aboutyou.dart_packages.sign_in_with_apple-mergeReleaseResources-11 /home/wappnet-52/Documents/Wappnet/locker-app/build/sign_in_with_apple/intermediates/incremental/release/mergeReleaseResources/stripped.dir
+com.aboutyou.dart_packages.sign_in_with_apple-merged_res-12 /home/wappnet-52/Documents/Wappnet/locker-app/build/sign_in_with_apple/intermediates/merged_res/release

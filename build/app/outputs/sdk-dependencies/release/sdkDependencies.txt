@@ -42,10 +42,10 @@ library {
   maven_library {
     groupId: "org.jetbrains.kotlin"
     artifactId: "kotlin-stdlib"
-    version: "1.7.10"
+    version: "1.7.22"
   }
   digests {
-    sha256: "\347q\376t%\n\224>\217cFq2\001\377\035\214\271\\:]\032\221\242+e\251\340Oj\211\001"
+    sha256: "\371\205\005\365\nj\034\035\300\002\326\020.KA\232\371=\001\035Z\020inu\243\2115\251n\251/"
   }
   repo_index {
     value: 1
@@ -55,10 +55,10 @@ library {
   maven_library {
     groupId: "org.jetbrains.kotlin"
     artifactId: "kotlin-stdlib-common"
-    version: "1.7.10"
+    version: "1.7.22"
   }
   digests {
-    sha256: "\031\361\002\357\351b\237\216\253\3068S\255\025\3053\344|G\371\037\312\t(\\[\336\206\345\237\221\324"
+    sha256: "yH\214\337(LK[9\230\323\002\352\351\277\t\200\372D\0369\006\306\245=\021t\371x\243\344\204"
   }
   repo_index {
     value: 1
@@ -1255,7 +1255,7 @@ library {
 }
 library {
   digests {
-    sha256: "\2028\026-\r\315\342\001\021N\304v\304\325Ey\213\'&\003\364T\254K\027\274j\"\234\342\356v"
+    sha256: "P\205\004(\b\261\037\335<G\201l\032\235H}\246\021\312\324\375\361\200\002\363\357z\337\266\337\230\352"
   }
 }
 library_dependencies {
@@ -1814,6 +1814,7 @@ module_dependencies {
   dependency_index: 2
   dependency_index: 70
   dependency_index: 69
+  dependency_index: 3
   dependency_index: 96
   dependency_index: 84
   dependency_index: 78
@@ -1833,6 +1834,16 @@ repositories {
 repositories {
   maven_repo {
     url: "https://storage.googleapis.com/download.flutter.io"
+  }
+}
+repositories {
+  maven_repo {
+    url: "https://dl.google.com/dl/android/maven2/"
+  }
+}
+repositories {
+  maven_repo {
+    url: "https://repo.maven.apache.org/maven2/"
   }
 }
 repositories {

@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:device_info_plus/device_info_plus.dart';
 
 import '../../utils/deriveEncryptionKey_function.dart';
 import '/auth/firebase_auth/auth_util.dart';
@@ -18,18 +19,24 @@ class AddDocsWidget extends StatefulWidget {
 
 class _AddDocsWidgetState extends State<AddDocsWidget> {
   late AddDocsModel _model;
+  bool bindToDevice = false;
   String? encryptionKey;
   final scaffoldKey = GlobalKey<ScaffoldState>();
-
+  String? deviceId;
+  bool isDataFetched = false;
   @override
   void initState() {
     super.initState();
+    fetchDeviceId();
+    
     _model = createModel(context, () => AddDocsModel());
     fetchUserEncryptionKey();
     _model.textController1 ??= TextEditingController();
     _model.textController2 ??= TextEditingController();
     _model.textController3 ??= TextEditingController();
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {
+          isDataFetched = true;
+        }));
   }
 
   void fetchUserEncryptionKey() async {
@@ -54,10 +61,15 @@ class _AddDocsWidgetState extends State<AddDocsWidget> {
     super.dispose();
   }
 
+  fetchDeviceId() async {
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+    deviceId =androidInfo.id;    
+  }
+
+  
   @override
   Widget build(BuildContext context) {
-    final FirebaseFirestore firestore = FirebaseFirestore.instance;
-
     return GestureDetector(
       onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
       child: Scaffold(
@@ -94,221 +106,248 @@ class _AddDocsWidgetState extends State<AddDocsWidget> {
         ),
         body: SafeArea(
           top: true,
-          child: Form(
-            key: _model.formKey,
-            autovalidateMode: AutovalidateMode.disabled,
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(8.0, 20.0, 8.0, 0.0),
-                  child: TextFormField(
-                    controller: _model.textController1,
-                    autofocus: true,
-                    obscureText: false,
-                    decoration: InputDecoration(
-                      labelText: 'Title to Display',
-                      labelStyle: FlutterFlowTheme.of(context).labelMedium,
-                      hintStyle: FlutterFlowTheme.of(context).labelMedium,
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: FlutterFlowTheme.of(context).alternate,
-                          width: 2.0,
-                        ),
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: FlutterFlowTheme.of(context).primary,
-                          width: 2.0,
-                        ),
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                      errorBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color(0xFFFF0000),
-                          width: 2.0,
-                        ),
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                      focusedErrorBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color(0xFFFF0000),
-                          width: 2.0,
-                        ),
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                    ),
-                    style: FlutterFlowTheme.of(context).bodyMedium,
-                    validator:
-                        _model.textController1Validator.asValidator(context),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(8.0, 20.0, 8.0, 0.0),
-                  child: TextFormField(
-                    controller: _model.textController2,
-                    autofocus: true,
-                    obscureText: false,
-                    decoration: InputDecoration(
-                      labelText: 'Secure information Title',
-                      labelStyle: FlutterFlowTheme.of(context).labelMedium,
-                      hintStyle: FlutterFlowTheme.of(context).labelMedium,
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: FlutterFlowTheme.of(context).alternate,
-                          width: 2.0,
-                        ),
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: FlutterFlowTheme.of(context).primary,
-                          width: 2.0,
-                        ),
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                      errorBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color(0xFFFF0000),
-                          width: 2.0,
-                        ),
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                      focusedErrorBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color(0xFFFF0000),
-                          width: 2.0,
-                        ),
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                    ),
-                    style: FlutterFlowTheme.of(context).bodyMedium,
-                    validator:
-                        _model.textController2Validator.asValidator(context),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(8.0, 20.0, 8.0, 0.0),
-                  child: TextFormField(
-                    controller: _model.textController3,
-                    autofocus: true,
-                    obscureText: false,
-                    decoration: InputDecoration(
-                      labelText: 'Secure information Description',
-                      labelStyle: FlutterFlowTheme.of(context).labelMedium,
-                      hintStyle: FlutterFlowTheme.of(context).labelMedium,
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: FlutterFlowTheme.of(context).alternate,
-                          width: 2.0,
-                        ),
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: FlutterFlowTheme.of(context).primary,
-                          width: 2.0,
-                        ),
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                      errorBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color(0xFFFF0000),
-                          width: 2.0,
-                        ),
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                      focusedErrorBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color(0xFFFF0000),
-                          width: 2.0,
-                        ),
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                    ),
-                    style: FlutterFlowTheme.of(context).bodyMedium,
-                    validator:
-                        _model.textController3Validator.asValidator(context),
-                  ),
-                ),
-                Padding(
-                  padding:
-                      EdgeInsetsDirectional.fromSTEB(10.0, 20.0, 10.0, 0.0),
-                  child: FFButtonWidget(
-                    onPressed: () async {
-                      if (_model.formKey.currentState!.validate()) {
-
-                        try{
-                          final userDocRef =
-                            firestore.collection('users').doc(currentUserUid);
-                        final detailDataRecordsCollectionRef =
-                            userDocRef.collection('detailDataRecords');
-                        await detailDataRecordsCollectionRef.add({
-                          'userId': currentUserUid,
-                          'displayTitle': _model.textController1.text,
-                          'dataTitle': encryptOperation(
-                              _model.textController2.text, encryptionKey!),
-                          'dataDescription': encryptOperation(
-                              _model.textController3.text, encryptionKey!),
-                        });
-
-                        }catch(e1){
-                          log("message $e1");
-                        }
-                        
-                        // await DetailDataRecord.collection
-                        //     .doc()
-                        //     .set(createDetailDataRecordData(
-                        //       userId: currentUserUid,
-                        //       displayTitle: _model.textController1.text,
-                        //       dataTitle: encryptOperation(
-                        //           _model.textController2.text, encryptionKey!),
-                        //       dataDescription: encryptOperation(
-                        //           _model.textController3.text, encryptionKey!),
-                        //     ));
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(
-                              'Data Added successfully',
-                              style: TextStyle(
-                                color: FlutterFlowTheme.of(context).primaryText,
+          child: isDataFetched
+              ? Form(
+                  key: _model.formKey,
+                  autovalidateMode: AutovalidateMode.disabled,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Padding(
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(8.0, 20.0, 8.0, 0.0),
+                        child: TextFormField(
+                          controller: _model.textController1,
+                          autofocus: true,
+                          obscureText: false,
+                          decoration: InputDecoration(
+                            labelText: 'Title to Display',
+                            labelStyle:
+                                FlutterFlowTheme.of(context).labelMedium,
+                            hintStyle: FlutterFlowTheme.of(context).labelMedium,
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).alternate,
+                                width: 2.0,
                               ),
+                              borderRadius: BorderRadius.circular(8.0),
                             ),
-                            duration: Duration(milliseconds: 4000),
-                            backgroundColor:
-                                FlutterFlowTheme.of(context).secondary,
-                          ),
-                        );
-                        context.safePop();
-                      }
-                    },
-                    text: 'Submit',
-                    options: FFButtonOptions(
-                      width: double.infinity,
-                      height: 40.0,
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
-                      iconPadding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      color: FlutterFlowTheme.of(context).primary,
-                      textStyle:
-                          FlutterFlowTheme.of(context).titleSmall.override(
-                                fontFamily: 'Roboto Slab',
-                                color: Colors.white,
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).primary,
+                                width: 2.0,
                               ),
-                      elevation: 3.0,
-                      borderSide: BorderSide(
-                        color: Colors.transparent,
-                        width: 1.0,
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            errorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0xFFFF0000),
+                                width: 2.0,
+                              ),
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            focusedErrorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0xFFFF0000),
+                                width: 2.0,
+                              ),
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                          ),
+                          style: FlutterFlowTheme.of(context).bodyMedium,
+                          validator: _model.textController1Validator
+                              .asValidator(context),
+                        ),
                       ),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
+                      Padding(
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(8.0, 20.0, 8.0, 0.0),
+                        child: TextFormField(
+                          controller: _model.textController2,
+                          autofocus: true,
+                          obscureText: false,
+                          decoration: InputDecoration(
+                            labelText: 'Secure information Title',
+                            labelStyle:
+                                FlutterFlowTheme.of(context).labelMedium,
+                            hintStyle: FlutterFlowTheme.of(context).labelMedium,
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).alternate,
+                                width: 2.0,
+                              ),
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).primary,
+                                width: 2.0,
+                              ),
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            errorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0xFFFF0000),
+                                width: 2.0,
+                              ),
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            focusedErrorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0xFFFF0000),
+                                width: 2.0,
+                              ),
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                          ),
+                          style: FlutterFlowTheme.of(context).bodyMedium,
+                          validator: _model.textController2Validator
+                              .asValidator(context),
+                        ),
+                      ),
+                      Padding(
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(8.0, 20.0, 8.0, 0.0),
+                        child: TextFormField(
+                          controller: _model.textController3,
+                          autofocus: true,
+                          obscureText: false,
+                          decoration: InputDecoration(
+                            labelText: 'Secure information Description',
+                            labelStyle:
+                                FlutterFlowTheme.of(context).labelMedium,
+                            hintStyle: FlutterFlowTheme.of(context).labelMedium,
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).alternate,
+                                width: 2.0,
+                              ),
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).primary,
+                                width: 2.0,
+                              ),
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            errorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0xFFFF0000),
+                                width: 2.0,
+                              ),
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            focusedErrorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0xFFFF0000),
+                                width: 2.0,
+                              ),
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                          ),
+                          style: FlutterFlowTheme.of(context).bodyMedium,
+                          validator: _model.textController3Validator
+                              .asValidator(context),
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          Checkbox(
+                            value: bindToDevice,
+                            onChanged: (value) {
+                              setState(() {
+                                bindToDevice = value!;
+                              });
+                            },
+                          ),
+                          Text('Bind to this device'),
+                        ],
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            10.0, 20.0, 10.0, 0.0),
+                        child: FFButtonWidget(
+                          onPressed: () async {
+                            if (_model.formKey.currentState!.validate()) {
+                              try {
+                                await DetailDataRecord.collection.doc().set(
+                                    createDetailDataRecordData(
+                                        userId: currentUserUid,
+                                        displayTitle:
+                                            _model.textController1.text,
+                                        dataTitle: encryptOperation(
+                                            _model.textController2.text,
+                                            encryptionKey!),
+                                        dataDescription: encryptOperation(
+                                            _model.textController3.text,
+                                            encryptionKey!),
+                                        deviceBinding: bindToDevice,
+                                        deviceDetail: encryptOperation(
+                                            deviceId!,
+                                            encryptionKey!)));
+                              } catch (e1) {
+                                log("message $e1");
+                              }
+
+                              // await DetailDataRecord.collection
+                              //     .doc()
+                              //     .set(createDetailDataRecordData(
+                              //       userId: currentUserUid,
+                              //       displayTitle: _model.textController1.text,
+                              //       dataTitle: encryptOperation(
+                              //           _model.textController2.text, encryptionKey!),
+                              //       dataDescription: encryptOperation(
+                              //           _model.textController3.text, encryptionKey!),
+                              //     ));
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    'Data Added successfully',
+                                    style: TextStyle(
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                    ),
+                                  ),
+                                  duration: Duration(milliseconds: 4000),
+                                  backgroundColor:
+                                      FlutterFlowTheme.of(context).secondary,
+                                ),
+                              );
+                              context.safePop();
+                            }
+                          },
+                          text: 'Submit',
+                          options: FFButtonOptions(
+                            width: double.infinity,
+                            height: 40.0,
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                24.0, 0.0, 24.0, 0.0),
+                            iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 0.0),
+                            color: FlutterFlowTheme.of(context).primary,
+                            textStyle: FlutterFlowTheme.of(context)
+                                .titleSmall
+                                .override(
+                                  fontFamily: 'Roboto Slab',
+                                  color: Colors.white,
+                                ),
+                            elevation: 3.0,
+                            borderSide: BorderSide(
+                              color: Colors.transparent,
+                              width: 1.0,
+                            ),
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
+                )
+              : Center(
+                  // Display a circular indicator while fetching data
+                  child: CircularProgressIndicator(),
                 ),
-              ],
-            ),
-          ),
         ),
       ),
     );

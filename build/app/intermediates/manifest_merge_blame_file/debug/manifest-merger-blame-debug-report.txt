@@ -12,39 +12,39 @@
 12         to allow setting breakpoints, to provide hot reload, etc.
 13    -->
 14    <uses-permission android:name="android.permission.INTERNET" />
-14-->/home/wappnet-52/Documents/Wappnet/locker_app/android/app/src/main/AndroidManifest.xml:4:5-66
-14-->/home/wappnet-52/Documents/Wappnet/locker_app/android/app/src/main/AndroidManifest.xml:4:22-64
+14-->/home/wappnet-52/Documents/Wappnet/locker-app/android/app/src/main/AndroidManifest.xml:4:5-66
+14-->/home/wappnet-52/Documents/Wappnet/locker-app/android/app/src/main/AndroidManifest.xml:4:22-64
 15    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 15-->[com.google.firebase:firebase-auth:22.0.0] /home/wappnet-52/.gradle/caches/transforms-3/9b326d35daa32c3f66f781d34d32cd55/transformed/jetified-firebase-auth-22.0.0/AndroidManifest.xml:26:5-79
 15-->[com.google.firebase:firebase-auth:22.0.0] /home/wappnet-52/.gradle/caches/transforms-3/9b326d35daa32c3f66f781d34d32cd55/transformed/jetified-firebase-auth-22.0.0/AndroidManifest.xml:26:22-76
 16
 17    <application
-17-->/home/wappnet-52/Documents/Wappnet/locker_app/android/app/src/main/AndroidManifest.xml:7:5-61:19
+17-->/home/wappnet-52/Documents/Wappnet/locker-app/android/app/src/main/AndroidManifest.xml:7:5-61:19
 18        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
 18-->[androidx.core:core:1.6.0] /home/wappnet-52/.gradle/caches/transforms-3/448e12895481b74f12aa96a40a56e1d8/transformed/core-1.6.0/AndroidManifest.xml:24:18-86
 19        android:debuggable="true"
 20        android:icon="@mipmap/ic_launcher"
-20-->/home/wappnet-52/Documents/Wappnet/locker_app/android/app/src/main/AndroidManifest.xml:10:9-43
+20-->/home/wappnet-52/Documents/Wappnet/locker-app/android/app/src/main/AndroidManifest.xml:10:9-43
 21        android:label="Locker App"
-21-->/home/wappnet-52/Documents/Wappnet/locker_app/android/app/src/main/AndroidManifest.xml:8:9-35
+21-->/home/wappnet-52/Documents/Wappnet/locker-app/android/app/src/main/AndroidManifest.xml:8:9-35
 22        android:requestLegacyExternalStorage="true" >
-22-->/home/wappnet-52/Documents/Wappnet/locker_app/android/app/src/main/AndroidManifest.xml:11:9-52
+22-->/home/wappnet-52/Documents/Wappnet/locker-app/android/app/src/main/AndroidManifest.xml:11:9-52
 23        <activity
-23-->/home/wappnet-52/Documents/Wappnet/locker_app/android/app/src/main/AndroidManifest.xml:13:9-51:20
+23-->/home/wappnet-52/Documents/Wappnet/locker-app/android/app/src/main/AndroidManifest.xml:13:9-51:20
 24            android:name="com.mycompany.lockerapp.MainActivity"
-24-->/home/wappnet-52/Documents/Wappnet/locker_app/android/app/src/main/AndroidManifest.xml:14:13-41
+24-->/home/wappnet-52/Documents/Wappnet/locker-app/android/app/src/main/AndroidManifest.xml:14:13-41
 25            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
-25-->/home/wappnet-52/Documents/Wappnet/locker_app/android/app/src/main/AndroidManifest.xml:18:13-163
+25-->/home/wappnet-52/Documents/Wappnet/locker-app/android/app/src/main/AndroidManifest.xml:18:13-163
 26            android:exported="true"
-26-->/home/wappnet-52/Documents/Wappnet/locker_app/android/app/src/main/AndroidManifest.xml:15:13-36
+26-->/home/wappnet-52/Documents/Wappnet/locker-app/android/app/src/main/AndroidManifest.xml:15:13-36
 27            android:hardwareAccelerated="true"
-27-->/home/wappnet-52/Documents/Wappnet/locker_app/android/app/src/main/AndroidManifest.xml:19:13-47
+27-->/home/wappnet-52/Documents/Wappnet/locker-app/android/app/src/main/AndroidManifest.xml:19:13-47
 28            android:launchMode="singleTop"
-28-->/home/wappnet-52/Documents/Wappnet/locker_app/android/app/src/main/AndroidManifest.xml:16:13-43
+28-->/home/wappnet-52/Documents/Wappnet/locker-app/android/app/src/main/AndroidManifest.xml:16:13-43
 29            android:theme="@style/LaunchTheme"
-29-->/home/wappnet-52/Documents/Wappnet/locker_app/android/app/src/main/AndroidManifest.xml:17:13-47
+29-->/home/wappnet-52/Documents/Wappnet/locker-app/android/app/src/main/AndroidManifest.xml:17:13-47
 30            android:windowSoftInputMode="adjustResize" >
-30-->/home/wappnet-52/Documents/Wappnet/locker_app/android/app/src/main/AndroidManifest.xml:20:13-55
+30-->/home/wappnet-52/Documents/Wappnet/locker-app/android/app/src/main/AndroidManifest.xml:20:13-55
 31
 32            <!--
 33                 Specifies an Android theme to apply to this Activity as soon as
@@ -53,11 +53,11 @@
 36                 to determine the Window background behind the Flutter UI.
 37            -->
 38            <meta-data
-38-->/home/wappnet-52/Documents/Wappnet/locker_app/android/app/src/main/AndroidManifest.xml:25:13-28:17
+38-->/home/wappnet-52/Documents/Wappnet/locker-app/android/app/src/main/AndroidManifest.xml:25:13-28:17
 39                android:name="io.flutter.embedding.android.NormalTheme"
-39-->/home/wappnet-52/Documents/Wappnet/locker_app/android/app/src/main/AndroidManifest.xml:26:15-70
+39-->/home/wappnet-52/Documents/Wappnet/locker-app/android/app/src/main/AndroidManifest.xml:26:15-70
 40                android:resource="@style/NormalTheme" />
-40-->/home/wappnet-52/Documents/Wappnet/locker_app/android/app/src/main/AndroidManifest.xml:27:15-52
+40-->/home/wappnet-52/Documents/Wappnet/locker-app/android/app/src/main/AndroidManifest.xml:27:15-52
 41            <!--
 42                 Displays an Android View that continues showing the launch screen
 43                 Drawable until Flutter paints its first frame, then this splash
@@ -66,50 +66,50 @@
 46                 Flutter's first frame.
 47            -->
 48            <meta-data
-48-->/home/wappnet-52/Documents/Wappnet/locker_app/android/app/src/main/AndroidManifest.xml:34:13-37:17
+48-->/home/wappnet-52/Documents/Wappnet/locker-app/android/app/src/main/AndroidManifest.xml:34:13-37:17
 49                android:name="io.flutter.embedding.android.SplashScreenDrawable"
-49-->/home/wappnet-52/Documents/Wappnet/locker_app/android/app/src/main/AndroidManifest.xml:35:15-79
+49-->/home/wappnet-52/Documents/Wappnet/locker-app/android/app/src/main/AndroidManifest.xml:35:15-79
 50                android:resource="@drawable/launch_background" />
-50-->/home/wappnet-52/Documents/Wappnet/locker_app/android/app/src/main/AndroidManifest.xml:36:15-61
+50-->/home/wappnet-52/Documents/Wappnet/locker-app/android/app/src/main/AndroidManifest.xml:36:15-61
 51
 52            <intent-filter>
-52-->/home/wappnet-52/Documents/Wappnet/locker_app/android/app/src/main/AndroidManifest.xml:38:13-41:29
+52-->/home/wappnet-52/Documents/Wappnet/locker-app/android/app/src/main/AndroidManifest.xml:38:13-41:29
 53                <action android:name="android.intent.action.MAIN" />
-53-->/home/wappnet-52/Documents/Wappnet/locker_app/android/app/src/main/AndroidManifest.xml:39:17-68
-53-->/home/wappnet-52/Documents/Wappnet/locker_app/android/app/src/main/AndroidManifest.xml:39:25-66
+53-->/home/wappnet-52/Documents/Wappnet/locker-app/android/app/src/main/AndroidManifest.xml:39:17-68
+53-->/home/wappnet-52/Documents/Wappnet/locker-app/android/app/src/main/AndroidManifest.xml:39:25-66
 54
 55                <category android:name="android.intent.category.LAUNCHER" />
-55-->/home/wappnet-52/Documents/Wappnet/locker_app/android/app/src/main/AndroidManifest.xml:40:17-76
-55-->/home/wappnet-52/Documents/Wappnet/locker_app/android/app/src/main/AndroidManifest.xml:40:27-74
+55-->/home/wappnet-52/Documents/Wappnet/locker-app/android/app/src/main/AndroidManifest.xml:40:17-76
+55-->/home/wappnet-52/Documents/Wappnet/locker-app/android/app/src/main/AndroidManifest.xml:40:27-74
 56            </intent-filter>
 57            <!-- Deep linking -->
 58            <meta-data
-58-->/home/wappnet-52/Documents/Wappnet/locker_app/android/app/src/main/AndroidManifest.xml:43:13-90
+58-->/home/wappnet-52/Documents/Wappnet/locker-app/android/app/src/main/AndroidManifest.xml:43:13-90
 59                android:name="flutter_deeplinking_enabled"
-59-->/home/wappnet-52/Documents/Wappnet/locker_app/android/app/src/main/AndroidManifest.xml:43:24-66
+59-->/home/wappnet-52/Documents/Wappnet/locker-app/android/app/src/main/AndroidManifest.xml:43:24-66
 60                android:value="true" />
-60-->/home/wappnet-52/Documents/Wappnet/locker_app/android/app/src/main/AndroidManifest.xml:43:67-87
+60-->/home/wappnet-52/Documents/Wappnet/locker-app/android/app/src/main/AndroidManifest.xml:43:67-87
 61
 62            <intent-filter android:autoVerify="true" >
-62-->/home/wappnet-52/Documents/Wappnet/locker_app/android/app/src/main/AndroidManifest.xml:44:13-49:29
-62-->/home/wappnet-52/Documents/Wappnet/locker_app/android/app/src/main/AndroidManifest.xml:44:28-53
+62-->/home/wappnet-52/Documents/Wappnet/locker-app/android/app/src/main/AndroidManifest.xml:44:13-49:29
+62-->/home/wappnet-52/Documents/Wappnet/locker-app/android/app/src/main/AndroidManifest.xml:44:28-53
 63                <action android:name="android.intent.action.VIEW" />
-63-->/home/wappnet-52/Documents/Wappnet/locker_app/android/app/src/main/AndroidManifest.xml:45:17-69
-63-->/home/wappnet-52/Documents/Wappnet/locker_app/android/app/src/main/AndroidManifest.xml:45:25-66
+63-->/home/wappnet-52/Documents/Wappnet/locker-app/android/app/src/main/AndroidManifest.xml:45:17-69
+63-->/home/wappnet-52/Documents/Wappnet/locker-app/android/app/src/main/AndroidManifest.xml:45:25-66
 64
 65                <category android:name="android.intent.category.DEFAULT" />
-65-->/home/wappnet-52/Documents/Wappnet/locker_app/android/app/src/main/AndroidManifest.xml:46:17-76
-65-->/home/wappnet-52/Documents/Wappnet/locker_app/android/app/src/main/AndroidManifest.xml:46:27-73
+65-->/home/wappnet-52/Documents/Wappnet/locker-app/android/app/src/main/AndroidManifest.xml:46:17-76
+65-->/home/wappnet-52/Documents/Wappnet/locker-app/android/app/src/main/AndroidManifest.xml:46:27-73
 66                <category android:name="android.intent.category.BROWSABLE" />
-66-->/home/wappnet-52/Documents/Wappnet/locker_app/android/app/src/main/AndroidManifest.xml:47:17-78
-66-->/home/wappnet-52/Documents/Wappnet/locker_app/android/app/src/main/AndroidManifest.xml:47:27-75
+66-->/home/wappnet-52/Documents/Wappnet/locker-app/android/app/src/main/AndroidManifest.xml:47:17-78
+66-->/home/wappnet-52/Documents/Wappnet/locker-app/android/app/src/main/AndroidManifest.xml:47:27-75
 67
 68                <data
-68-->/home/wappnet-52/Documents/Wappnet/locker_app/android/app/src/main/AndroidManifest.xml:48:17-81
+68-->/home/wappnet-52/Documents/Wappnet/locker-app/android/app/src/main/AndroidManifest.xml:48:17-81
 69                    android:host="lockerapp.com"
-69-->/home/wappnet-52/Documents/Wappnet/locker_app/android/app/src/main/AndroidManifest.xml:48:50-78
+69-->/home/wappnet-52/Documents/Wappnet/locker-app/android/app/src/main/AndroidManifest.xml:48:50-78
 70                    android:scheme="lockerapp" />
-70-->/home/wappnet-52/Documents/Wappnet/locker_app/android/app/src/main/AndroidManifest.xml:48:23-49
+70-->/home/wappnet-52/Documents/Wappnet/locker-app/android/app/src/main/AndroidManifest.xml:48:23-49
 71            </intent-filter>
 72        </activity>
 73
@@ -118,44 +118,44 @@
 76             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
 77        -->
 78        <meta-data
-78-->/home/wappnet-52/Documents/Wappnet/locker_app/android/app/src/main/AndroidManifest.xml:55:9-57:33
+78-->/home/wappnet-52/Documents/Wappnet/locker-app/android/app/src/main/AndroidManifest.xml:55:9-57:33
 79            android:name="flutterEmbedding"
-79-->/home/wappnet-52/Documents/Wappnet/locker_app/android/app/src/main/AndroidManifest.xml:56:13-44
+79-->/home/wappnet-52/Documents/Wappnet/locker-app/android/app/src/main/AndroidManifest.xml:56:13-44
 80            android:value="2" />
-80-->/home/wappnet-52/Documents/Wappnet/locker_app/android/app/src/main/AndroidManifest.xml:57:13-30
+80-->/home/wappnet-52/Documents/Wappnet/locker-app/android/app/src/main/AndroidManifest.xml:57:13-30
 81
 82        <service
-82-->[:firebase_auth] /home/wappnet-52/Documents/Wappnet/locker_app/build/firebase_auth/intermediates/merged_manifest/debug/AndroidManifest.xml:10:9-14:19
+82-->[:firebase_auth] /home/wappnet-52/Documents/Wappnet/locker-app/build/firebase_auth/intermediates/merged_manifest/debug/AndroidManifest.xml:10:9-14:19
 83            android:name="com.google.firebase.components.ComponentDiscoveryService"
-83-->[:firebase_auth] /home/wappnet-52/Documents/Wappnet/locker_app/build/firebase_auth/intermediates/merged_manifest/debug/AndroidManifest.xml:10:18-89
+83-->[:firebase_auth] /home/wappnet-52/Documents/Wappnet/locker-app/build/firebase_auth/intermediates/merged_manifest/debug/AndroidManifest.xml:10:18-89
 84            android:directBootAware="true"
 84-->[com.google.firebase:firebase-common:20.3.2] /home/wappnet-52/.gradle/caches/transforms-3/f4b1c56e7267c8a34165fab852e5eccd/transformed/jetified-firebase-common-20.3.2/AndroidManifest.xml:34:13-43
 85            android:exported="false" >
 85-->[com.google.firebase:firebase-auth:22.0.0] /home/wappnet-52/.gradle/caches/transforms-3/9b326d35daa32c3f66f781d34d32cd55/transformed/jetified-firebase-auth-22.0.0/AndroidManifest.xml:68:13-37
 86            <meta-data
-86-->[:firebase_auth] /home/wappnet-52/Documents/Wappnet/locker_app/build/firebase_auth/intermediates/merged_manifest/debug/AndroidManifest.xml:11:13-13:85
+86-->[:firebase_auth] /home/wappnet-52/Documents/Wappnet/locker-app/build/firebase_auth/intermediates/merged_manifest/debug/AndroidManifest.xml:11:13-13:85
 87                android:name="com.google.firebase.components:io.flutter.plugins.firebase.auth.FlutterFirebaseAuthRegistrar"
-87-->[:firebase_auth] /home/wappnet-52/Documents/Wappnet/locker_app/build/firebase_auth/intermediates/merged_manifest/debug/AndroidManifest.xml:12:17-124
+87-->[:firebase_auth] /home/wappnet-52/Documents/Wappnet/locker-app/build/firebase_auth/intermediates/merged_manifest/debug/AndroidManifest.xml:12:17-124
 88                android:value="com.google.firebase.components.ComponentRegistrar" />
-88-->[:firebase_auth] /home/wappnet-52/Documents/Wappnet/locker_app/build/firebase_auth/intermediates/merged_manifest/debug/AndroidManifest.xml:13:17-82
+88-->[:firebase_auth] /home/wappnet-52/Documents/Wappnet/locker-app/build/firebase_auth/intermediates/merged_manifest/debug/AndroidManifest.xml:13:17-82
 89            <meta-data
-89-->[:cloud_firestore] /home/wappnet-52/Documents/Wappnet/locker_app/build/cloud_firestore/intermediates/merged_manifest/debug/AndroidManifest.xml:11:13-13:85
+89-->[:cloud_firestore] /home/wappnet-52/Documents/Wappnet/locker-app/build/cloud_firestore/intermediates/merged_manifest/debug/AndroidManifest.xml:11:13-13:85
 90                android:name="com.google.firebase.components:io.flutter.plugins.firebase.firestore.FlutterFirebaseFirestoreRegistrar"
-90-->[:cloud_firestore] /home/wappnet-52/Documents/Wappnet/locker_app/build/cloud_firestore/intermediates/merged_manifest/debug/AndroidManifest.xml:12:17-134
+90-->[:cloud_firestore] /home/wappnet-52/Documents/Wappnet/locker-app/build/cloud_firestore/intermediates/merged_manifest/debug/AndroidManifest.xml:12:17-134
 91                android:value="com.google.firebase.components.ComponentRegistrar" />
-91-->[:cloud_firestore] /home/wappnet-52/Documents/Wappnet/locker_app/build/cloud_firestore/intermediates/merged_manifest/debug/AndroidManifest.xml:13:17-82
+91-->[:cloud_firestore] /home/wappnet-52/Documents/Wappnet/locker-app/build/cloud_firestore/intermediates/merged_manifest/debug/AndroidManifest.xml:13:17-82
 92            <meta-data
-92-->[:firebase_performance] /home/wappnet-52/Documents/Wappnet/locker_app/build/firebase_performance/intermediates/merged_manifest/debug/AndroidManifest.xml:13:13-15:85
+92-->[:firebase_performance] /home/wappnet-52/Documents/Wappnet/locker-app/build/firebase_performance/intermediates/merged_manifest/debug/AndroidManifest.xml:13:13-15:85
 93                android:name="com.google.firebase.components:io.flutter.plugins.firebase.performance.FlutterFirebaseAppRegistrar"
-93-->[:firebase_performance] /home/wappnet-52/Documents/Wappnet/locker_app/build/firebase_performance/intermediates/merged_manifest/debug/AndroidManifest.xml:14:17-130
+93-->[:firebase_performance] /home/wappnet-52/Documents/Wappnet/locker-app/build/firebase_performance/intermediates/merged_manifest/debug/AndroidManifest.xml:14:17-130
 94                android:value="com.google.firebase.components.ComponentRegistrar" />
-94-->[:firebase_performance] /home/wappnet-52/Documents/Wappnet/locker_app/build/firebase_performance/intermediates/merged_manifest/debug/AndroidManifest.xml:15:17-82
+94-->[:firebase_performance] /home/wappnet-52/Documents/Wappnet/locker-app/build/firebase_performance/intermediates/merged_manifest/debug/AndroidManifest.xml:15:17-82
 95            <meta-data
-95-->[:firebase_core] /home/wappnet-52/Documents/Wappnet/locker_app/build/firebase_core/intermediates/merged_manifest/debug/AndroidManifest.xml:11:13-13:85
+95-->[:firebase_core] /home/wappnet-52/Documents/Wappnet/locker-app/build/firebase_core/intermediates/merged_manifest/debug/AndroidManifest.xml:11:13-13:85
 96                android:name="com.google.firebase.components:io.flutter.plugins.firebase.core.FlutterFirebaseCoreRegistrar"
-96-->[:firebase_core] /home/wappnet-52/Documents/Wappnet/locker_app/build/firebase_core/intermediates/merged_manifest/debug/AndroidManifest.xml:12:17-124
+96-->[:firebase_core] /home/wappnet-52/Documents/Wappnet/locker-app/build/firebase_core/intermediates/merged_manifest/debug/AndroidManifest.xml:12:17-124
 97                android:value="com.google.firebase.components.ComponentRegistrar" />
-97-->[:firebase_core] /home/wappnet-52/Documents/Wappnet/locker_app/build/firebase_core/intermediates/merged_manifest/debug/AndroidManifest.xml:13:17-82
+97-->[:firebase_core] /home/wappnet-52/Documents/Wappnet/locker-app/build/firebase_core/intermediates/merged_manifest/debug/AndroidManifest.xml:13:17-82
 98            <meta-data
 98-->[com.google.firebase:firebase-auth:22.0.0] /home/wappnet-52/.gradle/caches/transforms-3/9b326d35daa32c3f66f781d34d32cd55/transformed/jetified-firebase-auth-22.0.0/AndroidManifest.xml:69:13-71:85
 99                android:name="com.google.firebase.components:com.google.firebase.auth.FirebaseAuthRegistrar"
@@ -201,13 +201,13 @@
 119        </service>
 120
 121        <activity
-121-->[:url_launcher_android] /home/wappnet-52/Documents/Wappnet/locker_app/build/url_launcher_android/intermediates/merged_manifest/debug/AndroidManifest.xml:10:9-13:74
+121-->[:url_launcher_android] /home/wappnet-52/Documents/Wappnet/locker-app/build/url_launcher_android/intermediates/merged_manifest/debug/AndroidManifest.xml:10:9-13:74
 122            android:name="io.flutter.plugins.urllauncher.WebViewActivity"
-122-->[:url_launcher_android] /home/wappnet-52/Documents/Wappnet/locker_app/build/url_launcher_android/intermediates/merged_manifest/debug/AndroidManifest.xml:11:13-74
+122-->[:url_launcher_android] /home/wappnet-52/Documents/Wappnet/locker-app/build/url_launcher_android/intermediates/merged_manifest/debug/AndroidManifest.xml:11:13-74
 123            android:exported="false"
-123-->[:url_launcher_android] /home/wappnet-52/Documents/Wappnet/locker_app/build/url_launcher_android/intermediates/merged_manifest/debug/AndroidManifest.xml:12:13-37
+123-->[:url_launcher_android] /home/wappnet-52/Documents/Wappnet/locker-app/build/url_launcher_android/intermediates/merged_manifest/debug/AndroidManifest.xml:12:13-37
 124            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-124-->[:url_launcher_android] /home/wappnet-52/Documents/Wappnet/locker_app/build/url_launcher_android/intermediates/merged_manifest/debug/AndroidManifest.xml:13:13-71
+124-->[:url_launcher_android] /home/wappnet-52/Documents/Wappnet/locker-app/build/url_launcher_android/intermediates/merged_manifest/debug/AndroidManifest.xml:13:13-71
 125
 126        <uses-library
 126-->[androidx.window:window:1.0.0-beta04] /home/wappnet-52/.gradle/caches/transforms-3/3547045148f823ae82ba5f00da62432e/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:25:9-27:40
@@ -237,23 +237,23 @@
 139            <intent-filter>
 139-->[com.google.firebase:firebase-auth:22.0.0] /home/wappnet-52/.gradle/caches/transforms-3/9b326d35daa32c3f66f781d34d32cd55/transformed/jetified-firebase-auth-22.0.0/AndroidManifest.xml:35:13-45:29
 140                <action android:name="android.intent.action.VIEW" />
-140-->/home/wappnet-52/Documents/Wappnet/locker_app/android/app/src/main/AndroidManifest.xml:45:17-69
-140-->/home/wappnet-52/Documents/Wappnet/locker_app/android/app/src/main/AndroidManifest.xml:45:25-66
+140-->/home/wappnet-52/Documents/Wappnet/locker-app/android/app/src/main/AndroidManifest.xml:45:17-69
+140-->/home/wappnet-52/Documents/Wappnet/locker-app/android/app/src/main/AndroidManifest.xml:45:25-66
 141
 142                <category android:name="android.intent.category.DEFAULT" />
-142-->/home/wappnet-52/Documents/Wappnet/locker_app/android/app/src/main/AndroidManifest.xml:46:17-76
-142-->/home/wappnet-52/Documents/Wappnet/locker_app/android/app/src/main/AndroidManifest.xml:46:27-73
+142-->/home/wappnet-52/Documents/Wappnet/locker-app/android/app/src/main/AndroidManifest.xml:46:17-76
+142-->/home/wappnet-52/Documents/Wappnet/locker-app/android/app/src/main/AndroidManifest.xml:46:27-73
 143                <category android:name="android.intent.category.BROWSABLE" />
-143-->/home/wappnet-52/Documents/Wappnet/locker_app/android/app/src/main/AndroidManifest.xml:47:17-78
-143-->/home/wappnet-52/Documents/Wappnet/locker_app/android/app/src/main/AndroidManifest.xml:47:27-75
+143-->/home/wappnet-52/Documents/Wappnet/locker-app/android/app/src/main/AndroidManifest.xml:47:17-78
+143-->/home/wappnet-52/Documents/Wappnet/locker-app/android/app/src/main/AndroidManifest.xml:47:27-75
 144
 145                <data
-145-->/home/wappnet-52/Documents/Wappnet/locker_app/android/app/src/main/AndroidManifest.xml:48:17-81
+145-->/home/wappnet-52/Documents/Wappnet/locker-app/android/app/src/main/AndroidManifest.xml:48:17-81
 146                    android:host="firebase.auth"
-146-->/home/wappnet-52/Documents/Wappnet/locker_app/android/app/src/main/AndroidManifest.xml:48:50-78
+146-->/home/wappnet-52/Documents/Wappnet/locker-app/android/app/src/main/AndroidManifest.xml:48:50-78
 147                    android:path="/"
 148                    android:scheme="genericidp" />
-148-->/home/wappnet-52/Documents/Wappnet/locker_app/android/app/src/main/AndroidManifest.xml:48:23-49
+148-->/home/wappnet-52/Documents/Wappnet/locker-app/android/app/src/main/AndroidManifest.xml:48:23-49
 149            </intent-filter>
 150        </activity>
 151        <activity
@@ -271,23 +271,23 @@
 157            <intent-filter>
 157-->[com.google.firebase:firebase-auth:22.0.0] /home/wappnet-52/.gradle/caches/transforms-3/9b326d35daa32c3f66f781d34d32cd55/transformed/jetified-firebase-auth-22.0.0/AndroidManifest.xml:53:13-63:29
 158                <action android:name="android.intent.action.VIEW" />
-158-->/home/wappnet-52/Documents/Wappnet/locker_app/android/app/src/main/AndroidManifest.xml:45:17-69
-158-->/home/wappnet-52/Documents/Wappnet/locker_app/android/app/src/main/AndroidManifest.xml:45:25-66
+158-->/home/wappnet-52/Documents/Wappnet/locker-app/android/app/src/main/AndroidManifest.xml:45:17-69
+158-->/home/wappnet-52/Documents/Wappnet/locker-app/android/app/src/main/AndroidManifest.xml:45:25-66
 159
 160                <category android:name="android.intent.category.DEFAULT" />
-160-->/home/wappnet-52/Documents/Wappnet/locker_app/android/app/src/main/AndroidManifest.xml:46:17-76
-160-->/home/wappnet-52/Documents/Wappnet/locker_app/android/app/src/main/AndroidManifest.xml:46:27-73
+160-->/home/wappnet-52/Documents/Wappnet/locker-app/android/app/src/main/AndroidManifest.xml:46:17-76
+160-->/home/wappnet-52/Documents/Wappnet/locker-app/android/app/src/main/AndroidManifest.xml:46:27-73
 161                <category android:name="android.intent.category.BROWSABLE" />
-161-->/home/wappnet-52/Documents/Wappnet/locker_app/android/app/src/main/AndroidManifest.xml:47:17-78
-161-->/home/wappnet-52/Documents/Wappnet/locker_app/android/app/src/main/AndroidManifest.xml:47:27-75
+161-->/home/wappnet-52/Documents/Wappnet/locker-app/android/app/src/main/AndroidManifest.xml:47:17-78
+161-->/home/wappnet-52/Documents/Wappnet/locker-app/android/app/src/main/AndroidManifest.xml:47:27-75
 162
 163                <data
-163-->/home/wappnet-52/Documents/Wappnet/locker_app/android/app/src/main/AndroidManifest.xml:48:17-81
+163-->/home/wappnet-52/Documents/Wappnet/locker-app/android/app/src/main/AndroidManifest.xml:48:17-81
 164                    android:host="firebase.auth"
-164-->/home/wappnet-52/Documents/Wappnet/locker_app/android/app/src/main/AndroidManifest.xml:48:50-78
+164-->/home/wappnet-52/Documents/Wappnet/locker-app/android/app/src/main/AndroidManifest.xml:48:50-78
 165                    android:path="/"
 166                    android:scheme="recaptcha" />
-166-->/home/wappnet-52/Documents/Wappnet/locker_app/android/app/src/main/AndroidManifest.xml:48:23-49
+166-->/home/wappnet-52/Documents/Wappnet/locker-app/android/app/src/main/AndroidManifest.xml:48:23-49
 167            </intent-filter>
 168        </activity>
 169

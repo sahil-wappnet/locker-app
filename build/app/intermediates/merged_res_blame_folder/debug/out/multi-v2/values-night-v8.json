@@ -4,7 +4,7 @@
             "outputFile": "com.mycompany.lockerapp-mergeDebugResources-18:/values-night-v8/values-night-v8.xml",
             "map": [
                 {
-                    "source": "/home/wappnet-52/Documents/Wappnet/locker_app/android/app/src/main/res/values-night/styles.xml",
+                    "source": "/home/wappnet-52/Documents/Wappnet/locker-app/android/app/src/main/res/values-night/styles.xml",
                     "from": {
                         "startLines": "3,14",
                         "startColumns": "4,4",

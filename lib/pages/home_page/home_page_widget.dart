@@ -1,3 +1,4 @@
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../flutter_flow/flutter_flow_widgets.dart';
 import '../../utils/deriveEncryptionKey_function.dart';
@@ -23,14 +24,39 @@ class HomePageWidget extends StatefulWidget {
 class _HomePageWidgetState extends State<HomePageWidget> {
   late HomePageModel _model;
   late String decryptionKey;
+  String? deviceId;
+    String? encryptionKey;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
+    fetchUserEncryptionKey();
     _model = createModel(context, () => HomePageModel());
-
+    fetchDeviceId();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+  }
+
+  void fetchUserEncryptionKey() async {
+    try {
+      final userDocRef =
+          FirebaseFirestore.instance.collection('users').doc(currentUserUid);
+      DocumentSnapshot userSnapshot = await userDocRef.get();
+
+      if (userSnapshot.exists) {
+        Map<String, dynamic> userData =
+            userSnapshot.data() as Map<String, dynamic>;
+        encryptionKey = userData['encryptionKey'];
+      }
+    } catch (e) {
+      print('Error fetching user email: $e');
+    }
+  }
+
+  fetchDeviceId() async {
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+    deviceId = androidInfo.id;
   }
 
   void fetchUserEmail() async {
@@ -50,9 +76,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
   }
 
   Future<void> clearAllSharedPreferences() async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  await prefs.clear();
-}
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.clear();
+  }
 
   @override
   void dispose() {
@@ -135,16 +161,15 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     ),
                   ),
                 ),
-                
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 15),
                   child: FFButtonWidget(
                     onPressed: () async {
                       GoRouter.of(context).prepareAuthEvent();
-                        await authManager.signOut();
-                        clearAllSharedPreferences();
-                        GoRouter.of(context).clearRedirectLocation();
-                        context.goNamedAuth('sign_in', context.mounted);
+                      await authManager.signOut();
+                      clearAllSharedPreferences();
+                      GoRouter.of(context).clearRedirectLocation();
+                      context.goNamedAuth('sign_in', context.mounted);
                     },
                     text: 'Logout',
                     options: FFButtonOptions(
@@ -219,7 +244,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                 child: StreamBuilder<List<DetailDataRecord>>(
                   stream: queryDetailDataRecord(
                     queryBuilder: (detailDataRecord) => detailDataRecord
-                        .where('user_id', isEqualTo: currentUserUid),
+                        .where('user_id', isEqualTo: currentUserUid)
+                        
                   ),
                   builder: (context, snapshot) {
                     if (!snapshot.hasData) {
@@ -242,19 +268,25 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         ),
                       );
                     }
-                    List<DetailDataRecord> listViewDetailDataRecordList =
-                        snapshot.data!;
+                    List<DetailDataRecord> allData = snapshot.data!;
+                    List<DetailDataRecord> filteredData = allData.where((data) {
+                      return data.dataDeviceBinding == false ||
+                          (data.dataDeviceBinding == true &&
+                              data.deviceDetail == encryptOperation(
+                                            deviceId!,
+                                            encryptionKey!));
+                    }).toList();
+
                     return GridView.builder(
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(childAspectRatio: 0.9,
-                          crossAxisCount: 2),
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          childAspectRatio: 0.9, crossAxisCount: 2),
                       padding: EdgeInsets.zero,
-                      
                       shrinkWrap: true,
                       scrollDirection: Axis.vertical,
-                      itemCount: listViewDetailDataRecordList.length,
+                      itemCount: filteredData.length,
                       itemBuilder: (context, listViewIndex) {
                         final listViewDetailDataRecord =
-                            listViewDetailDataRecordList[listViewIndex];
+                            filteredData[listViewIndex];
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: InkWell(
@@ -280,8 +312,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                     context: context,
                                     builder: (BuildContext context) {
                                       return CustomDialog(
-                                        param: listViewDetailDataRecord
-                                            .reference,
+                                        param:
+                                            listViewDetailDataRecord.reference,
                                       );
                                     },
                                   );
@@ -289,7 +321,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                               } catch (e) {
                                 print('Error fetching user email: $e');
                               }
-                             
                             },
                             onLongPress: () async {
                               await showModalBottomSheet(
@@ -304,12 +335,11 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                     onTap: () => FocusScope.of(context)
                                         .requestFocus(_model.unfocusNode),
                                     child: Padding(
-                                      padding:
-                                          MediaQuery.viewInsetsOf(context),
+                                      padding: MediaQuery.viewInsetsOf(context),
                                       child: Container(
-                                        height: MediaQuery.sizeOf(context)
-                                                .height *
-                                            0.3,
+                                        height:
+                                            MediaQuery.sizeOf(context).height *
+                                                0.3,
                                         child: BottomSheet1Widget(
                                           datRef: listViewDetailDataRecord
                                               .reference,
@@ -322,7 +352,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                             },
                             child: Card(
                               elevation: 2,
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18),),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18),
+                              ),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.center,

@@ -34,11 +34,22 @@ class DetailDataRecord extends FirestoreRecord {
   String get dataDescription => _dataDescription ?? '';
   bool hasDataDescription() => _dataDescription != null;
 
+  String? _deviceDetail;
+  String get deviceDetail => _deviceDetail ?? '';
+  bool hasdeviceDetail() => _deviceDetail != null;
+
+  bool? _dataDevicebinding;
+  bool get dataDeviceBinding => _dataDevicebinding ?? false;
+  bool hasDataDeviceBinding() => _dataDevicebinding != null;
+
   void _initializeFields() {
     _userId = snapshotData['user_id'] as String?;
-    _displayTitle =snapshotData['display_title'] as String?;
+    _displayTitle = snapshotData['display_title'] as String?;
     _dataTitle = snapshotData['data_title'] as String?;
     _dataDescription = snapshotData['data_description'] as String?;
+    _dataDevicebinding = snapshotData['device_binding'];
+    _deviceDetail =snapshotData['device_detail'] as String?;
+
   }
 
   static CollectionReference get collection =>
@@ -80,6 +91,8 @@ Map<String, dynamic> createDetailDataRecordData({
   String? displayTitle,
   String? dataTitle,
   String? dataDescription,
+  bool? deviceBinding,
+  String? deviceDetail
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -87,6 +100,8 @@ Map<String, dynamic> createDetailDataRecordData({
       'display_title': displayTitle,
       'data_title': dataTitle,
       'data_description': dataDescription,
+      'device_binding': deviceBinding,
+      'device_detail': deviceDetail
     }.withoutNulls,
   );
 
@@ -99,6 +114,7 @@ class DetailDataRecordDocumentEquality implements Equality<DetailDataRecord> {
   @override
   bool equals(DetailDataRecord? e1, DetailDataRecord? e2) {
     return e1?.userId == e2?.userId &&
+        e1?.displayTitle == e2?.displayTitle &&
         e1?.dataTitle == e2?.dataTitle &&
         e1?.dataDescription == e2?.dataDescription;
   }

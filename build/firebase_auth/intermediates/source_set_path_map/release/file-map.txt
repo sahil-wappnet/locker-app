@@ -8,10 +8,10 @@ io.flutter.plugins.firebase.auth.firebase_auth-jetified-window-java-1.0.0-beta04
 io.flutter.plugins.firebase.auth.firebase_auth-jetified-firebase-common-20.3.2-7 /home/wappnet-52/.gradle/caches/transforms-3/f4b1c56e7267c8a34165fab852e5eccd/transformed/jetified-firebase-common-20.3.2/res
 io.flutter.plugins.firebase.auth.firebase_auth-main-8 /home/wappnet-52/.pub-cache/hosted/pub.dev/firebase_auth-4.6.2/android/src/main/res
 io.flutter.plugins.firebase.auth.firebase_auth-release-9 /home/wappnet-52/.pub-cache/hosted/pub.dev/firebase_auth-4.6.2/android/src/release/res
-io.flutter.plugins.firebase.auth.firebase_auth-pngs-10 /home/wappnet-52/Documents/Wappnet/locker_app/build/firebase_auth/generated/res/pngs/release
-io.flutter.plugins.firebase.auth.firebase_auth-resValues-11 /home/wappnet-52/Documents/Wappnet/locker_app/build/firebase_auth/generated/res/resValues/release
-io.flutter.plugins.firebase.auth.firebase_auth-rs-12 /home/wappnet-52/Documents/Wappnet/locker_app/build/firebase_auth/generated/res/rs/release
-io.flutter.plugins.firebase.auth.firebase_auth-mergeReleaseResources-13 /home/wappnet-52/Documents/Wappnet/locker_app/build/firebase_auth/intermediates/incremental/release/mergeReleaseResources/merged.dir
-io.flutter.plugins.firebase.auth.firebase_auth-mergeReleaseResources-14 /home/wappnet-52/Documents/Wappnet/locker_app/build/firebase_auth/intermediates/incremental/release/mergeReleaseResources/stripped.dir
-io.flutter.plugins.firebase.auth.firebase_auth-merged_res-15 /home/wappnet-52/Documents/Wappnet/locker_app/build/firebase_auth/intermediates/merged_res/release
-io.flutter.plugins.firebase.auth.firebase_auth-packaged_res-16 /home/wappnet-52/Documents/Wappnet/locker_app/build/firebase_core/intermediates/packaged_res/release
+io.flutter.plugins.firebase.auth.firebase_auth-pngs-10 /home/wappnet-52/Documents/Wappnet/locker-app/build/firebase_auth/generated/res/pngs/release
+io.flutter.plugins.firebase.auth.firebase_auth-resValues-11 /home/wappnet-52/Documents/Wappnet/locker-app/build/firebase_auth/generated/res/resValues/release
+io.flutter.plugins.firebase.auth.firebase_auth-rs-12 /home/wappnet-52/Documents/Wappnet/locker-app/build/firebase_auth/generated/res/rs/release
+io.flutter.plugins.firebase.auth.firebase_auth-mergeReleaseResources-13 /home/wappnet-52/Documents/Wappnet/locker-app/build/firebase_auth/intermediates/incremental/release/mergeReleaseResources/merged.dir
+io.flutter.plugins.firebase.auth.firebase_auth-mergeReleaseResources-14 /home/wappnet-52/Documents/Wappnet/locker-app/build/firebase_auth/intermediates/incremental/release/mergeReleaseResources/stripped.dir
+io.flutter.plugins.firebase.auth.firebase_auth-merged_res-15 /home/wappnet-52/Documents/Wappnet/locker-app/build/firebase_auth/intermediates/merged_res/release
+io.flutter.plugins.firebase.auth.firebase_auth-packaged_res-16 /home/wappnet-52/Documents/Wappnet/locker-app/build/firebase_core/intermediates/packaged_res/release

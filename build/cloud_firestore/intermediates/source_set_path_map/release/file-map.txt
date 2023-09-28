@@ -7,10 +7,10 @@ io.flutter.plugins.firebase.firestore.cloud_firestore-jetified-window-java-1.0.0
 io.flutter.plugins.firebase.firestore.cloud_firestore-jetified-firebase-common-20.3.2-6 /home/wappnet-52/.gradle/caches/transforms-3/f4b1c56e7267c8a34165fab852e5eccd/transformed/jetified-firebase-common-20.3.2/res
 io.flutter.plugins.firebase.firestore.cloud_firestore-main-7 /home/wappnet-52/.pub-cache/hosted/pub.dev/cloud_firestore-4.8.0/android/src/main/res
 io.flutter.plugins.firebase.firestore.cloud_firestore-release-8 /home/wappnet-52/.pub-cache/hosted/pub.dev/cloud_firestore-4.8.0/android/src/release/res
-io.flutter.plugins.firebase.firestore.cloud_firestore-pngs-9 /home/wappnet-52/Documents/Wappnet/locker_app/build/cloud_firestore/generated/res/pngs/release
-io.flutter.plugins.firebase.firestore.cloud_firestore-resValues-10 /home/wappnet-52/Documents/Wappnet/locker_app/build/cloud_firestore/generated/res/resValues/release
-io.flutter.plugins.firebase.firestore.cloud_firestore-rs-11 /home/wappnet-52/Documents/Wappnet/locker_app/build/cloud_firestore/generated/res/rs/release
-io.flutter.plugins.firebase.firestore.cloud_firestore-mergeReleaseResources-12 /home/wappnet-52/Documents/Wappnet/locker_app/build/cloud_firestore/intermediates/incremental/release/mergeReleaseResources/merged.dir
-io.flutter.plugins.firebase.firestore.cloud_firestore-mergeReleaseResources-13 /home/wappnet-52/Documents/Wappnet/locker_app/build/cloud_firestore/intermediates/incremental/release/mergeReleaseResources/stripped.dir
-io.flutter.plugins.firebase.firestore.cloud_firestore-merged_res-14 /home/wappnet-52/Documents/Wappnet/locker_app/build/cloud_firestore/intermediates/merged_res/release
-io.flutter.plugins.firebase.firestore.cloud_firestore-packaged_res-15 /home/wappnet-52/Documents/Wappnet/locker_app/build/firebase_core/intermediates/packaged_res/release
+io.flutter.plugins.firebase.firestore.cloud_firestore-pngs-9 /home/wappnet-52/Documents/Wappnet/locker-app/build/cloud_firestore/generated/res/pngs/release
+io.flutter.plugins.firebase.firestore.cloud_firestore-resValues-10 /home/wappnet-52/Documents/Wappnet/locker-app/build/cloud_firestore/generated/res/resValues/release
+io.flutter.plugins.firebase.firestore.cloud_firestore-rs-11 /home/wappnet-52/Documents/Wappnet/locker-app/build/cloud_firestore/generated/res/rs/release
+io.flutter.plugins.firebase.firestore.cloud_firestore-mergeReleaseResources-12 /home/wappnet-52/Documents/Wappnet/locker-app/build/cloud_firestore/intermediates/incremental/release/mergeReleaseResources/merged.dir
+io.flutter.plugins.firebase.firestore.cloud_firestore-mergeReleaseResources-13 /home/wappnet-52/Documents/Wappnet/locker-app/build/cloud_firestore/intermediates/incremental/release/mergeReleaseResources/stripped.dir
+io.flutter.plugins.firebase.firestore.cloud_firestore-merged_res-14 /home/wappnet-52/Documents/Wappnet/locker-app/build/cloud_firestore/intermediates/merged_res/release
+io.flutter.plugins.firebase.firestore.cloud_firestore-packaged_res-15 /home/wappnet-52/Documents/Wappnet/locker-app/build/firebase_core/intermediates/packaged_res/release

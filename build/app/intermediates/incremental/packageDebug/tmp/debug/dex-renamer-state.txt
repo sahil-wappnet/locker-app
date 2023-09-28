@@ -1,10 +1,10 @@
-#Thu Sep 28 11:40:17 IST 2023
-base.0=/home/wappnet-52/Documents/Wappnet/locker_app/build/app/intermediates/dex/debug/mergeExtDexDebug/classes.dex
-base.1=/home/wappnet-52/Documents/Wappnet/locker_app/build/app/intermediates/dex/debug/mergeLibDexDebug/0/classes.dex
-base.2=/home/wappnet-52/Documents/Wappnet/locker_app/build/app/intermediates/dex/debug/mergeProjectDexDebug/0/classes.dex
-base.3=/home/wappnet-52/Documents/Wappnet/locker_app/build/app/intermediates/dex/debug/mergeProjectDexDebug/1/classes.dex
-base.4=/home/wappnet-52/Documents/Wappnet/locker_app/build/app/intermediates/dex/debug/mergeProjectDexDebug/8/classes.dex
-base.5=/home/wappnet-52/Documents/Wappnet/locker_app/build/app/intermediates/dex/debug/mergeExtDexDebug/classes2.dex
+#Thu Sep 28 21:04:53 IST 2023
+base.0=/home/wappnet-52/Documents/Wappnet/locker-app/build/app/intermediates/dex/debug/mergeExtDexDebug/classes.dex
+base.1=/home/wappnet-52/Documents/Wappnet/locker-app/build/app/intermediates/dex/debug/mergeLibDexDebug/0/classes.dex
+base.2=/home/wappnet-52/Documents/Wappnet/locker-app/build/app/intermediates/dex/debug/mergeProjectDexDebug/0/classes.dex
+base.3=/home/wappnet-52/Documents/Wappnet/locker-app/build/app/intermediates/dex/debug/mergeProjectDexDebug/1/classes.dex
+base.4=/home/wappnet-52/Documents/Wappnet/locker-app/build/app/intermediates/dex/debug/mergeProjectDexDebug/8/classes.dex
+base.5=/home/wappnet-52/Documents/Wappnet/locker-app/build/app/intermediates/dex/debug/mergeExtDexDebug/classes2.dex
 path.0=classes.dex
 path.1=0/classes.dex
 path.2=0/classes.dex
