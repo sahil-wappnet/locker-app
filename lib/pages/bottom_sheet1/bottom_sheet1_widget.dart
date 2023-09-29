@@ -78,10 +78,12 @@ class _BottomSheet1WidgetState extends State<BottomSheet1Widget> {
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
+                Container(
                   padding: EdgeInsetsDirectional.fromSTEB(16.0, 4.0, 0.0, 8.0),
                   child: Text(
                     bottomSheetMaterialDetailDataRecord.displayTitle,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                     style: FlutterFlowTheme.of(context).headlineSmall,
                   ),
                 ),

@@ -2,6 +2,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
+import 'custom_dialogue.dart';
 import 'dialogue_model.dart';
 export 'dialogue_model.dart';
 
@@ -123,8 +124,18 @@ class _DialogueWidgetState extends State<DialogueWidget> {
                     ),
                     FFButtonWidget(
                       onPressed: () async {
-                        await widget.dataRef!.delete();
                         Navigator.pop(context);
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return CustomDialog(
+                              confirmBtnText: 'Submit',
+                              btnClickOperation: 2,
+                              param: widget.dataRef!,
+                            );
+                          },
+                        );
+                        
                       },
                       text: 'Delete',
                       icon: Icon(

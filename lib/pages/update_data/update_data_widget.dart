@@ -304,9 +304,10 @@ class _UpdateDataWidgetState extends State<UpdateDataWidget> {
                             if (formKey.currentState!.validate()) {
                               await widget.dataRef!.update(
                                 createDetailDataRecordData(
+                                  userId: currentUserUid,
                                   displayTitle: textController!.text,
-                                  dataTitle: textController1!.text,
-                                  dataDescription: textController2!.text,
+                                  dataTitle: encryptOperation(textController1!.text, encryptionKey!),
+                                  dataDescription: encryptOperation(textController2!.text, encryptionKey!),
                                   deviceBinding: bindToDevice,
                                   deviceDetail: encryptOperation(
                                             deviceId!,

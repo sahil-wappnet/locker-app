@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:locker_app/auth/firebase_auth/auth_util.dart';
 import 'package:locker_app/backend/backend.dart';
 import 'package:locker_app/pages/dialogue/custom_dialogue_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../flutter_flow/flutter_flow_model.dart';
 import '../../flutter_flow/flutter_flow_theme.dart';
@@ -12,8 +13,15 @@ import '../../flutter_flow/nav/serialization_util.dart';
 import '../../utils/deriveEncryptionKey_function.dart';
 
 class CustomDialog extends StatefulWidget {
-  CustomDialog({Key? key, required this.param});
-  final dynamic param;
+  CustomDialog(
+      {Key? key,
+      this.param,
+      this.confirmBtnText,
+      this.btnClickOperation});
+
+  String? confirmBtnText;
+  int? btnClickOperation;
+  dynamic param;
   @override
   _CustomDialogState createState() => _CustomDialogState();
 }
@@ -141,19 +149,76 @@ class _CustomDialogState extends State<CustomDialog> {
 
                 final encryptionKey = await deriveEncryptionKey(
                     enteredText, currentUserUid, currentUserEmail);
-
+                log("1: ${bytesToHexString(encryptionKey)}");
+                log("2: ${ConstanData.encryptionKey}");
                 if (bytesToHexString(encryptionKey) ==
                     ConstanData.encryptionKey) {
-                  context.pushNamed(
-                    'update_data',
-                    queryParameters: {
-                      'dataRef': serializeParam(
-                        widget.param,
-                        ParamType.DocumentReference,
-                      ),
-                    }.withoutNulls,
-                  );
-                  Navigator.of(context).pop();
+                  if (widget.btnClickOperation == 1) {
+                    context.pushNamed(
+                      'update_data',
+                      queryParameters: {
+                        'dataRef': serializeParam(
+                          widget.param,
+                          ParamType.DocumentReference,
+                        ),
+                      }.withoutNulls,
+                    );
+                    Navigator.of(context).pop();
+                  } else if(widget.btnClickOperation==2){
+                    Navigator.of(context).pop();
+                    widget.param.delete();
+                    ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                'Data Deleted Successfully',
+                                style: TextStyle(
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                ),
+                              ),
+                              duration: Duration(milliseconds: 4000),
+                              backgroundColor:
+                                  FlutterFlowTheme.of(context).secondary,
+                            ),
+                          );
+                  }else if(widget.btnClickOperation==3){
+                    setState(() {
+                      clearAllSharedPreferences();  
+                    });
+                    
+                    Navigator.of(context).pop();
+                    ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                'Now you can reset your password',
+                                style: TextStyle(
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                ),
+                              ),
+                              duration: Duration(milliseconds: 4000),
+                              backgroundColor:
+                                  FlutterFlowTheme.of(context).secondary,
+                            ),
+                          );
+                  }
+                  else{
+                    Navigator.of(context).pop();
+                    ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                'User Authenticated successfully',
+                                style: TextStyle(
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                ),
+                              ),
+                              duration: Duration(milliseconds: 4000),
+                              backgroundColor:
+                                  FlutterFlowTheme.of(context).secondary,
+                            ),
+                          );
+                  }
                 } else {
                   customDialogueModel.passwordFieldController!.clear();
                   ScaffoldMessenger.of(context).showSnackBar(
@@ -187,5 +252,9 @@ class _CustomDialogState extends State<CustomDialog> {
         ),
       ],
     );
+  }
+  Future<void> clearAllSharedPreferences() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.clear();
   }
 }

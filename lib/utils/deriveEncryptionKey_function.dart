@@ -8,6 +8,7 @@ import 'package:pointycastle/key_derivators/api.dart' as keyDerivators;
 
 class ConstanData{
   static String encryptionKey="";
+  static String userId="";
 }
 
 Future<Uint8List> deriveEncryptionKey(String masterPassword, String userId, String email) async {

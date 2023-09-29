@@ -1,8 +1,11 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:locker_app/pages/veryfication_page/verification_page_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../auth/firebase_auth/auth_util.dart';
 import '../../utils/deriveEncryptionKey_function.dart';
+import '../dialogue/custom_dialogue.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -21,25 +24,18 @@ class VerificationScreenWidget extends StatefulWidget {
 class _VerificationScreenWidgetState extends State<VerificationScreenWidget> {
   late VerificationScreenModel _model;
   String? encryptionKey;
-  bool? auth_password_bool;
+  bool? authPasswordBool;
   String? encryptedPassword;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
+    ConstanData.userId=currentUserUid;
     fetchUserEncryptionKey();
-    fetchUserLocalData();
     _model = createModel(context, () => VerificationScreenModel());
   }
 
-  void fetchUserLocalData() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    auth_password_bool = sharedPreferences.getBool('auth_password_bool');
-    if (auth_password_bool == true) {
-      encryptedPassword = sharedPreferences.getString('user_auth_password');
-    }
-  }
 
   void fetchUserEncryptionKey() async {
     try {
@@ -52,8 +48,14 @@ class _VerificationScreenWidgetState extends State<VerificationScreenWidget> {
             userSnapshot.data() as Map<String, dynamic>;
         encryptionKey = userData['encryptionKey'];
       }
+      SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    authPasswordBool = sharedPreferences.getBool('auth_password_bool');
+    if (authPasswordBool == true) {
+      encryptedPassword = sharedPreferences.getString('user_auth_password');
+      log("message ${decryptOperation(encryptedPassword!, encryptionKey!)}");
+    }
     } catch (e) {
-      print('Error fetching user email: $e');
+      log('Error fetching user email: $e');
     }
   }
 
@@ -156,16 +158,102 @@ class _VerificationScreenWidgetState extends State<VerificationScreenWidget> {
                 ),
               ),
               Align(
+                alignment: AlignmentDirectional(1.00, 0.00),
+                child: Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(16, 5, 16, 05),
+                  child: SelectionArea(
+                      child: GestureDetector(
+                    onTap: () async {
+                      try {
+                        final userDocRef = FirebaseFirestore.instance
+                            .collection('users')
+                            .doc(currentUserUid);
+                        DocumentSnapshot userSnapshot = await userDocRef.get();
+
+                        if (userSnapshot.exists) {
+                          Map<String, dynamic> userData =
+                              userSnapshot.data() as Map<String, dynamic>;
+
+                          ConstanData.encryptionKey = userData['encryptionKey'];
+                        }
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return CustomDialog(
+                              confirmBtnText: 'Verify',
+                              btnClickOperation: 3,
+                            );
+                          },
+                        ).then((value) {
+                          log("value is $value");
+                          fetchUserEncryptionKey();
+                                                    log("value2 is $value");
+                        });
+                        initState();
+                      } catch (e) {
+                        print('Error fetching user email: $e');
+                      }
+                    },
+                    child: Text(
+                      'reset authentication password?',
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontFamily: 'Roboto Slab',
+                            color: FlutterFlowTheme.of(context).primary,
+                            fontWeight: FontWeight.w600,
+                          ),
+                    ),
+                  )),
+                ),
+              ),
+              Align(
                 alignment: AlignmentDirectional(0.00, 0.00),
                 child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
+                  padding: EdgeInsetsDirectional.fromSTEB(16, 10, 16, 0),
                   child: FFButtonWidget(
                     onPressed: () async {
-                      if (auth_password_bool == true) {
-                        String pin = encryptOperation(
-                            _model.pinCodeController.text, encryptionKey!);
+                      final enteredPin = _model.pinCodeController.text;
+                      log("Entered Pin: ${enteredPin.length}");
+                      if (enteredPin.length == 6) {
+                        if (authPasswordBool == true) {
+                          String pin =
+                              encryptOperation(enteredPin, encryptionKey!);
 
-                        if (pin == encryptedPassword!) {
+                          if (pin == encryptedPassword!) {
+                            context.pushNamed(
+                              'homePage',
+                              extra: <String, dynamic>{
+                                kTransitionInfoKey: TransitionInfo(
+                                  hasTransition: false,
+                                  transitionType:
+                                      PageTransitionType.rightToLeft,
+                                ),
+                              },
+                            );
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  'Please Enter Correct Authentication Password',
+                                  style: TextStyle(
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryBackground,
+                                  ),
+                                ),
+                                duration: Duration(milliseconds: 4000),
+                                backgroundColor:
+                                    FlutterFlowTheme.of(context).error,
+                              ),
+                            );
+                            _model.pinCodeController?.clear();
+                          }
+                        } else {
+                          SharedPreferences sharedPreferences =
+                              await SharedPreferences.getInstance();
+                          String pin = encryptOperation(
+                              _model.pinCodeController.text, encryptionKey!);
+                          sharedPreferences.setBool('auth_password_bool', true);
+                          sharedPreferences.setString(
+                              'user_auth_password', pin);
                           context.pushNamed(
                             'homePage',
                             extra: <String, dynamic>{
@@ -175,37 +263,20 @@ class _VerificationScreenWidgetState extends State<VerificationScreenWidget> {
                               ),
                             },
                           );
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(
-                                'Please Enter Correct Authentication Password',
-                                style: TextStyle(
-                                  color: FlutterFlowTheme.of(context)
-                                      .primaryBackground,
-                                ),
-                              ),
-                              duration: Duration(milliseconds: 4000),
-                              backgroundColor:
-                                  FlutterFlowTheme.of(context).error,
-                            ),
-                          );
                         }
                       } else {
-                        SharedPreferences sharedPreferences =
-                            await SharedPreferences.getInstance();
-                        String pin = encryptOperation(
-                            _model.pinCodeController.text, encryptionKey!);
-                        sharedPreferences.setBool('auth_password_bool', true);
-                        sharedPreferences.setString('user_auth_password', pin);
-                        context.pushNamed(
-                          'homePage',
-                          extra: <String, dynamic>{
-                            kTransitionInfoKey: TransitionInfo(
-                              hasTransition: false,
-                              transitionType: PageTransitionType.rightToLeft,
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              'Please Enter a Valid 6-digit PIN',
+                              style: TextStyle(
+                                color: FlutterFlowTheme.of(context)
+                                    .primaryBackground,
+                              ),
                             ),
-                          },
+                            duration: Duration(milliseconds: 4000),
+                            backgroundColor: FlutterFlowTheme.of(context).error,
+                          ),
                         );
                       }
                     },
@@ -239,5 +310,13 @@ class _VerificationScreenWidgetState extends State<VerificationScreenWidget> {
         ),
       ),
     );
+  }
+
+  bool isPinValid(String pin) {
+    if (pin.length == 6) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
