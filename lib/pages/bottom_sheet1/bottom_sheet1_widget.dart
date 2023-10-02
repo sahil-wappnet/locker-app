@@ -1,8 +1,14 @@
+
+
+
+import 'package:encrypt/encrypt.dart';
+
 import '../../auth/firebase_auth/auth_util.dart';
 import '../../utils/deriveEncryptionKey_function.dart';
 import '../dialogue/custom_dialogue.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
+import 'package:pointycastle/export.dart' as expostdata;
 import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/dialogue/dialogue_widget.dart';
 import 'package:aligned_dialog/aligned_dialog.dart';
@@ -12,9 +18,8 @@ export 'bottom_sheet1_model.dart';
 
 class BottomSheet1Widget extends StatefulWidget {
   const BottomSheet1Widget({
-    Key? key,
     required this.datRef,
-  }) : super(key: key);
+  });
 
   final DocumentReference? datRef;
 
@@ -24,6 +29,10 @@ class BottomSheet1Widget extends StatefulWidget {
 
 class _BottomSheet1WidgetState extends State<BottomSheet1Widget> {
   late BottomSheet1Model _model;
+    String? privateKey;
+
+    String? encryptedEnencryptionKey;
+
 
   @override
   void setState(VoidCallback callback) {
@@ -34,18 +43,27 @@ class _BottomSheet1WidgetState extends State<BottomSheet1Widget> {
   @override
   void initState() {
     super.initState();
+   
     _model = createModel(context, () => BottomSheet1Model());
-
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+  }
+
+  expostdata.RSAPrivateKey parsePrivateKey(String privateKeyPEM) {
+    final rsaParser = RSAKeyParser();
+    final privateKey = rsaParser.parse(privateKeyPEM) as expostdata.RSAPrivateKey;
+    return privateKey;
   }
 
   @override
   void dispose() {
     _model.maybeDispose();
-
     super.dispose();
   }
 
+  
+
+
+ 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<DetailDataRecord>(
@@ -87,6 +105,7 @@ class _BottomSheet1WidgetState extends State<BottomSheet1Widget> {
                     style: FlutterFlowTheme.of(context).headlineSmall,
                   ),
                 ),
+                
                 // Padding(
                 //   padding: EdgeInsetsDirectional.fromSTEB(16.0, 4.0, 0.0, 8.0),
                 //   child: Text(

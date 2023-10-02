@@ -44,6 +44,7 @@ class DetailDataRecord extends FirestoreRecord {
 
   void _initializeFields() {
     _userId = snapshotData['user_id'] as String?;
+     _deviceDetail =snapshotData['email'] as String?;
     _displayTitle = snapshotData['display_title'] as String?;
     _dataTitle = snapshotData['data_title'] as String?;
     _dataDescription = snapshotData['data_description'] as String?;
@@ -89,6 +90,7 @@ class DetailDataRecord extends FirestoreRecord {
 Map<String, dynamic> createDetailDataRecordData({
   String? userId,
   String? displayTitle,
+  String? email,
   String? dataTitle,
   String? dataDescription,
   bool? deviceBinding,
@@ -97,6 +99,7 @@ Map<String, dynamic> createDetailDataRecordData({
   final firestoreData = mapToFirestore(
     <String, dynamic>{
       'user_id': userId,
+      'email': email,
       'display_title': displayTitle,
       'data_title': dataTitle,
       'data_description': dataDescription,

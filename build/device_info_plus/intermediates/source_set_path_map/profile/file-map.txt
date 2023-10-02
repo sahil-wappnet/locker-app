@@ -1,0 +1,12 @@
+dev.fluttercommunity.plus.device_info.device_info_plus-jetified-window-1.0.0-beta04-0 /home/wappnet-52/.gradle/caches/transforms-3/3547045148f823ae82ba5f00da62432e/transformed/jetified-window-1.0.0-beta04/res
+dev.fluttercommunity.plus.device_info.device_info_plus-core-1.6.0-1 /home/wappnet-52/.gradle/caches/transforms-3/448e12895481b74f12aa96a40a56e1d8/transformed/core-1.6.0/res
+dev.fluttercommunity.plus.device_info.device_info_plus-jetified-annotation-experimental-1.1.0-2 /home/wappnet-52/.gradle/caches/transforms-3/d5b68f2b2b74dc022302f312e278ba97/transformed/jetified-annotation-experimental-1.1.0/res
+dev.fluttercommunity.plus.device_info.device_info_plus-jetified-window-java-1.0.0-beta04-3 /home/wappnet-52/.gradle/caches/transforms-3/e35e8dc727b74800fd8b576809d7e083/transformed/jetified-window-java-1.0.0-beta04/res
+dev.fluttercommunity.plus.device_info.device_info_plus-main-4 /home/wappnet-52/.pub-cache/hosted/pub.dev/device_info_plus-9.0.3/android/src/main/res
+dev.fluttercommunity.plus.device_info.device_info_plus-profile-5 /home/wappnet-52/.pub-cache/hosted/pub.dev/device_info_plus-9.0.3/android/src/profile/res
+dev.fluttercommunity.plus.device_info.device_info_plus-pngs-6 /home/wappnet-52/Documents/Wappnet/locker-app/build/device_info_plus/generated/res/pngs/profile
+dev.fluttercommunity.plus.device_info.device_info_plus-resValues-7 /home/wappnet-52/Documents/Wappnet/locker-app/build/device_info_plus/generated/res/resValues/profile
+dev.fluttercommunity.plus.device_info.device_info_plus-rs-8 /home/wappnet-52/Documents/Wappnet/locker-app/build/device_info_plus/generated/res/rs/profile
+dev.fluttercommunity.plus.device_info.device_info_plus-mergeProfileResources-9 /home/wappnet-52/Documents/Wappnet/locker-app/build/device_info_plus/intermediates/incremental/profile/mergeProfileResources/merged.dir
+dev.fluttercommunity.plus.device_info.device_info_plus-mergeProfileResources-10 /home/wappnet-52/Documents/Wappnet/locker-app/build/device_info_plus/intermediates/incremental/profile/mergeProfileResources/stripped.dir
+dev.fluttercommunity.plus.device_info.device_info_plus-merged_res-11 /home/wappnet-52/Documents/Wappnet/locker-app/build/device_info_plus/intermediates/merged_res/profile

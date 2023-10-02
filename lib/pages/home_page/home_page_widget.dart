@@ -1,4 +1,3 @@
-
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -27,7 +26,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
   late HomePageModel _model;
   late String decryptionKey;
   String? deviceId;
-    String? encryptionKey;
+  String? encryptionKey;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -125,7 +124,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
           child: Drawer(
             elevation: 16.0,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               mainAxisSize: MainAxisSize.max,
               children: [
                 Container(
@@ -161,6 +159,56 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         ),
                       ],
                     ),
+                  ),
+                ),
+                ListTile(
+                  onTap: () {
+                    context.pop();
+                    context.pushNamed(
+                      'add_nominee',
+                      extra: <String, dynamic>{
+                        kTransitionInfoKey: TransitionInfo(
+                          hasTransition: true,
+                          transitionType: PageTransitionType.leftToRight,
+                        ),
+                      },
+                    );
+                  },
+                  leading: Icon(
+                    Icons.person_add_alt_1_outlined,
+                    color: Colors.black,
+                  ),
+                  title: Text(
+                    'Add Nominee',
+                    style: FlutterFlowTheme.of(context).titleSmall.override(
+                          fontFamily: 'Roboto Slab',
+                          color: Colors.black,
+                        ),
+                  ),
+                ),
+                ListTile(
+                  onTap: () {
+                    context.pop();
+                    context.pushNamed(
+                      'shared_with_me',
+                      extra: <String, dynamic>{
+                        kTransitionInfoKey: TransitionInfo(
+                          hasTransition: true,
+                          transitionType: PageTransitionType.leftToRight,
+                        ),
+                      },
+                    );
+                  },
+                  leading: Icon(
+                    Icons.people,
+                    color: Colors.black,
+                  ),
+                  title: Text(
+                    'Shared with me',
+                    style: FlutterFlowTheme.of(context).titleSmall.override(
+                          fontFamily: 'Roboto Slab',
+                          color: Colors.black,
+                        ),
                   ),
                 ),
                 Padding(
@@ -201,7 +249,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
         body: SafeArea(
           top: true,
           child: SingleChildScrollView(
-
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
@@ -212,8 +259,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 10.0, 0.0),
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            10.0, 0.0, 10.0, 0.0),
                         child: InkWell(
                           splashColor: Colors.transparent,
                           focusColor: Colors.transparent,
@@ -234,10 +281,11 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         child: Text(
                           'Home Page',
                           textAlign: TextAlign.start,
-                          style: FlutterFlowTheme.of(context).titleLarge.override(
-                                fontFamily: 'Outfit',
-                                color: FlutterFlowTheme.of(context).primary,
-                              ),
+                          style:
+                              FlutterFlowTheme.of(context).titleLarge.override(
+                                    fontFamily: 'Outfit',
+                                    color: FlutterFlowTheme.of(context).primary,
+                                  ),
                         ),
                       ),
                     ],
@@ -247,9 +295,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                   padding: EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
                   child: StreamBuilder<List<DetailDataRecord>>(
                     stream: queryDetailDataRecord(
-                      queryBuilder: (detailDataRecord) => detailDataRecord
-                          .where('user_id', isEqualTo: currentUserUid)                          
-                    ),
+                        queryBuilder: (detailDataRecord) => detailDataRecord
+                            .where('user_id', isEqualTo: currentUserUid)),
                     builder: (context, snapshot) {
                       if (!snapshot.hasData) {
                         return Center(
@@ -272,14 +319,15 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         );
                       }
                       List<DetailDataRecord> allData = snapshot.data!;
-                      List<DetailDataRecord> filteredData = allData.where((data) {
+                      List<DetailDataRecord> filteredData =
+                          allData.where((data) {
                         return data.dataDeviceBinding == false ||
                             (data.dataDeviceBinding == true &&
-                                data.deviceDetail == encryptOperation(
-                                              deviceId!,
-                                              encryptionKey!));
+                                data.deviceDetail ==
+                                    encryptOperation(
+                                        deviceId!, encryptionKey!));
                       }).toList();
-          
+
                       return GridView.builder(
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                             childAspectRatio: 0.9, crossAxisCount: 2),
@@ -303,11 +351,11 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                       .doc(currentUserUid);
                                   DocumentSnapshot userSnapshot =
                                       await userDocRef.get();
-          
+
                                   if (userSnapshot.exists) {
                                     Map<String, dynamic> userData = userSnapshot
                                         .data() as Map<String, dynamic>;
-          
+
                                     ConstanData.encryptionKey =
                                         userData['encryptionKey'];
                                     showDialog(
@@ -316,8 +364,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                         return CustomDialog(
                                           confirmBtnText: 'Submit',
                                           btnClickOperation: 1,
-                                          param:
-                                              listViewDetailDataRecord.reference,
+                                          param: listViewDetailDataRecord
+                                              .reference,
                                         );
                                       },
                                     );
@@ -339,13 +387,15 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                       onTap: () => FocusScope.of(context)
                                           .requestFocus(_model.unfocusNode),
                                       child: Padding(
-                                        padding: MediaQuery.viewInsetsOf(context),
+                                        padding:
+                                            MediaQuery.viewInsetsOf(context),
                                         child: Container(
-                                          height:
-                                              MediaQuery.sizeOf(context).height *
-                                                  0.4,
+                                          height: MediaQuery.sizeOf(context)
+                                                  .height *
+                                              0.4,
                                           child: BottomSheet1Widget(
-                                            datRef: listViewDetailDataRecord.reference,
+                                            datRef: listViewDetailDataRecord
+                                                .reference,
                                           ),
                                         ),
                                       ),
@@ -364,8 +414,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   children: [
                                     Image.asset(
                                       'assets/images/locker_appicon.png',
-                                      height: MediaQuery.sizeOf(context).height *
-                                          0.17,
+                                      height:
+                                          MediaQuery.sizeOf(context).height *
+                                              0.17,
                                       fit: BoxFit.contain,
                                     ),
                                     Container(
@@ -376,13 +427,18 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           SizedBox(
-                                            width: MediaQuery.sizeOf(context).width/3,
+                                            width: MediaQuery.sizeOf(context)
+                                                    .width /
+                                                3,
                                             child: Text(
-                                              listViewDetailDataRecord.displayTitle,
+                                              listViewDetailDataRecord
+                                                  .displayTitle,
                                               overflow: TextOverflow.ellipsis,
-                                              style: FlutterFlowTheme.of(context)
-                                                  .titleMedium
-                                                  .copyWith(color: Colors.black),
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleMedium
+                                                      .copyWith(
+                                                          color: Colors.black),
                                             ),
                                           ),
                                           Builder(
@@ -390,10 +446,12 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                               splashColor: Colors.transparent,
                                               focusColor: Colors.transparent,
                                               hoverColor: Colors.transparent,
-                                              highlightColor: Colors.transparent,
+                                              highlightColor:
+                                                  Colors.transparent,
                                               onTap: () async {
                                                 await showAlignedDialog(
-                                                  barrierColor: Color(0x00FF0000),
+                                                  barrierColor:
+                                                      Color(0x00FF0000),
                                                   context: context,
                                                   isGlobal: true,
                                                   avoidOverflow: false,

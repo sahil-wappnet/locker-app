@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="gcm_defaultSenderId" translatable="false">952323710384</string>
+    <string name="google_api_key" translatable="false">AIzaSyCvX8F2WZ_9ir0cPzjM-HRjoobe8uoyv84</string>
+    <string name="google_app_id" translatable="false">1:952323710384:android:6a79fd4bba49be58ffca75</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyCvX8F2WZ_9ir0cPzjM-HRjoobe8uoyv84</string>
+    <string name="google_storage_bucket" translatable="false">locker-app-41fc8.appspot.com</string>
+    <string name="project_id" translatable="false">locker-app-41fc8</string>
+</resources>

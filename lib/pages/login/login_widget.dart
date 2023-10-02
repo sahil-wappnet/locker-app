@@ -1,9 +1,17 @@
+import 'dart:developer';
+import 'package:pointycastle/export.dart' as exportpointycastle;
+import 'package:pointycastle/key_generators/rsa_key_generator.dart';
+import 'dart:convert';
+import 'package:convert/convert.dart';
 import '../../utils/deriveEncryptionKey_function.dart';
+import '../../utils/functions.dart';
 import '/auth/firebase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:pointycastle/src/platform_check/platform_check.dart'
+    as platform;
 import 'login_model.dart';
 export 'login_model.dart';
 
@@ -288,68 +296,109 @@ class _LoginWidgetState extends State<LoginWidget> {
                         ),
                       ),
                     ),
-                    // Align(
-                    //   alignment: AlignmentDirectional(1.00, 0.00),
-                    //   child: Padding(
-                    //     padding:
-                    //         EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
-                    //     child: SelectionArea(
-                    //         child: Text(
-                    //       'Forget password?',
-                    //       style:
-                    //           FlutterFlowTheme.of(context).bodyMedium.override(
-                    //                 fontFamily: 'Roboto Slab',
-                    //                 color: FlutterFlowTheme.of(context).primary,
-                    //                 fontWeight: FontWeight.w600,
-                    //               ),
-                    //     )),
-                    //   ),
-                    // ),
                     Padding(
                       padding:
                           EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
                       child: FFButtonWidget(
                         onPressed: () async {
-
-                          if(_model.formKey.currentState!.validate()){
+                          if (_model.formKey.currentState!.validate()) {
                             GoRouter.of(context).prepareAuthEvent();
 
-                          final user = await authManager.signInWithEmail(
-                            context,
-                            _model.emailAddressFieldController.text,
-                            _model.passwordFieldController.text,
-                          );
-                          if (user == null) {
-                            return;
-                          }
+                            final user = await authManager.signInWithEmail(
+                              context,
+                              _model.emailAddressFieldController.text,
+                              _model.passwordFieldController.text,
+                            );
+                            if (user == null) {
+                              return;
+                            }
 
-                          final encryptionKey = await deriveEncryptionKey(
-                              '${_model.passwordFieldController.text}',
-                              '${user.uid!}',
-                              '${_model.emailAddressFieldController.text}');
+                            final encryptionKey = await deriveEncryptionKey(
+                                '${_model.passwordFieldController.text}',
+                                '${user.uid!}',
+                                '${_model.emailAddressFieldController.text}');
 
-
-                          final userDocRef = FirebaseFirestore.instance
-                              .collection('users')
-                              .doc(user.uid);
-
-                          final userDocSnapshot = await userDocRef.get();
-                          final publicKeyExists = userDocSnapshot.exists &&
-                              userDocSnapshot.data() != null &&
-                              userDocSnapshot
-                                  .data()!
-                                  .containsKey('encryptionKey');
-
-                          if (!publicKeyExists) {
                             final userDocRef = FirebaseFirestore.instance
                                 .collection('users')
-                                .doc(user.uid!);
-                            await userDocRef.update({
-                              'encryptionKey': bytesToHexString(encryptionKey),
-                            });
+                                .doc(user.uid);
+
+                            final userDocSnapshot = await userDocRef.get();
+                            final publicKeyExists = userDocSnapshot.exists &&
+                                userDocSnapshot.data() != null &&
+                                userDocSnapshot
+                                    .data()!
+                                    .containsKey('encryptionKey');
+
+                            if (!publicKeyExists) {
+                              final userDocRef = FirebaseFirestore.instance
+                                  .collection('users')
+                                  .doc(user.uid!);
+                              await userDocRef.update({
+                                'encryptionKey':
+                                    bytesToHexString(encryptionKey),
+                              });
+                            }
+
+                            final rsaKeyExists = userDocSnapshot.exists &&
+                                userDocSnapshot.data() != null &&
+                                userDocSnapshot
+                                    .data()!
+                                    .containsKey('public key');
+
+                            if (!rsaKeyExists) {
+                              int bitLength = 2048;
+                              final keyGen = RSAKeyGenerator();
+                              final secureRandom =
+                                  exportpointycastle.SecureRandom('Fortuna')
+                                    ..seed(exportpointycastle.KeyParameter(
+                                        platform.Platform.instance
+                                            .platformEntropySource()
+                                            .getBytes(32)));
+
+                              keyGen.init(
+                                  exportpointycastle.ParametersWithRandom(
+                                      exportpointycastle
+                                          .RSAKeyGeneratorParameters(
+                                              BigInt.parse('65537'),
+                                              bitLength,
+                                              64),
+                                      secureRandom));
+                              final pair = keyGen.generateKeyPair();
+
+                              final myPublic = pair.publicKey
+                                  as exportpointycastle.RSAPublicKey;
+                              final myPrivate = pair.privateKey
+                                  as exportpointycastle.RSAPrivateKey;
+                              final keyPair =
+                                  exportpointycastle.AsymmetricKeyPair<
+                                          exportpointycastle.RSAPublicKey,
+                                          exportpointycastle.RSAPrivateKey>(
+                                      myPublic, myPrivate);
+                              final publicKey = keyPair.publicKey;
+                              final privateKey = keyPair.privateKey;
+
+                              log('Generated Public Key:');
+                              log(encodePublicKeyToPem(publicKey));
+
+                              log('Generated Private Key:');
+                              log(encodePrivateKeyToPem(privateKey));
+
+                              final userDocRef = FirebaseFirestore.instance
+                                  .collection('users')
+                                  .doc(user.uid!);
+                              await userDocRef.update({
+                                'public key': encodePublicKeyToPem(publicKey),
+                                'private key': encryptOperation(encodePrivateKeyToPem(privateKey), bytesToHexString(encryptionKey))
+                                // encryptPrivateKey(
+                                //     encodePrivateKeyToPem(privateKey),
+                                //     publicKey,
+                                //     bytesToHexString(encryptionKey)),
+                              });
+                            }
+
+                            context.pushNamedAuth(
+                                'veryfication_page', context.mounted);
                           }
-                            context.pushNamedAuth('veryfication_page', context.mounted);
-                          }                        
                         },
                         text: 'Log in',
                         options: FFButtonOptions(
@@ -436,5 +485,40 @@ class _LoginWidgetState extends State<LoginWidget> {
         ),
       ),
     );
+  }
+
+//   String decryptPrivateKey(
+//     String encryptedPrivateKey, RSAPrivateKey privateKey, String encryptionKeyHex) {
+//   final rsaDecrypter = RSAEngine()
+//     ..init(
+//       false,
+//       PrivateKeyParameter<RSAPrivateKey>(privateKey),
+//     );
+
+//   final cipherText = base64.decode(encryptedPrivateKey);
+
+//   final decryptedEncryptionKey = rsaDecrypter.process(cipherText);
+  
+//   final decryptedKeyHex = hex.encode(decryptedEncryptionKey);
+
+//   return decryptedKeyHex;
+// }
+
+  String encryptPrivateKey(String privateKey,
+      exportpointycastle.RSAPublicKey publicKey, String encryptionKeyHex) {
+    final rsaEncrypter = exportpointycastle.RSAEngine()
+      ..init(
+        true,
+        exportpointycastle.PublicKeyParameter<exportpointycastle.RSAPublicKey>(
+            publicKey),
+      );
+
+    final encryptionKey = Uint8List.fromList(hex.decode(encryptionKeyHex));
+
+    final cipherText = rsaEncrypter.process(encryptionKey);
+
+    final encryptedPrivateKey = base64.encode(cipherText);
+
+    return encryptedPrivateKey;
   }
 }

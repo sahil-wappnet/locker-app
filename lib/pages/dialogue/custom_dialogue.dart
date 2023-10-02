@@ -201,6 +201,18 @@ class _CustomDialogState extends State<CustomDialog> {
                                   FlutterFlowTheme.of(context).secondary,
                             ),
                           );
+                  } else if (widget.btnClickOperation == 4) {
+                    context.pushNamed(
+                      'nominee_data',
+                      queryParameters: {
+                        'dataRef': serializeParam(
+                          widget.param,
+                          ParamType.DocumentReference,
+                        ),
+                      }.withoutNulls,
+                    );
+                                        Navigator.of(context).pop();
+
                   }
                   else{
                     Navigator.of(context).pop();

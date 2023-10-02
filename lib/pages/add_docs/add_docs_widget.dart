@@ -274,6 +274,7 @@ class _AddDocsWidgetState extends State<AddDocsWidget> {
                                 await DetailDataRecord.collection.doc().set(
                                     createDetailDataRecordData(
                                         userId: currentUserUid,
+                                        email: currentUserEmail,
                                         displayTitle:
                                             _model.textController1.text,
                                         dataTitle: encryptOperation(

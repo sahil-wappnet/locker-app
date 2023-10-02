@@ -1,10 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:locker_app/pages/veryfication_page/verification_page_model.dart';
+import 'package:locker_app/pages/add_nominee/add_nominee_widget.dart';
+import 'package:locker_app/pages/shared_with_me/shared_with_me.dart';
 
 import '../../auth/base_auth_user_provider.dart';
 
+import '../../pages/nominee_data/nominee_data.dart';
 import '../../pages/veryfication_page/veryfication_page.dart';
 import '/index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -25,11 +27,6 @@ class AppStateNotifier extends ChangeNotifier {
   bool showSplashImage = true;
   String? _redirectLocation;
 
-  /// Determines whether the app will refresh and build again when a sign
-  /// in or sign out happens. This is useful when the app is launched or
-  /// on an unexpected logout. However, this must be turned off when we
-  /// intend to sign in/out and then navigate or perform any actions after.
-  /// Otherwise, this will trigger a refresh and interrupt the action(s).
   bool notifyOnAuthChange = true;
 
   bool get loading => user == null || showSplashImage;
@@ -42,8 +39,6 @@ class AppStateNotifier extends ChangeNotifier {
   void setRedirectLocationIfUnset(String loc) => _redirectLocation ??= loc;
   void clearRedirectLocation() => _redirectLocation = null;
 
-  /// Mark as not needing to notify on a sign in / out when we intend
-  /// to perform subsequent actions (such as navigation) afterwards.
   void updateNotifyOnAuthChange(bool notify) => notifyOnAuthChange = notify;
 
   void update(BaseAuthUser newUser) {
@@ -116,6 +111,24 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'add_docs',
           path: '/addDocs',
           builder: (context, params) => AddDocsWidget(),
+        ),
+        FFRoute(
+          name: 'add_nominee',
+          path: '/addNominee',
+          builder: (context, params) => AddNomineeWidget(),
+        ),
+        FFRoute(
+          name: 'shared_with_me',
+          path: '/sharedWithMe',
+          builder: (context, params) => SharedWithMe(),
+        ),
+        FFRoute(
+          name: 'nominee_data',
+          path: '/nomineeData',
+          builder: (context, params) => NomineeData(
+            dataRef: params.getParam(
+                'dataRef', ParamType.DocumentReference, false, ['detail_data']),
+          ),
         ),
         FFRoute(
           name: 'update_data',

@@ -488,6 +488,12 @@
       "languageVersion": "2.15"
     },
     {
+      "name": "rsa_encrypt",
+      "rootUri": "file:///home/wappnet-52/.pub-cache/hosted/pub.dev/rsa_encrypt-2.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "rxdart",
       "rootUri": "file:///home/wappnet-52/.pub-cache/hosted/pub.dev/rxdart-0.27.7",
       "packageUri": "lib/",
@@ -722,7 +728,7 @@
       "languageVersion": "3.0"
     }
   ],
-  "generated": "2023-09-29T12:54:51.660990Z",
+  "generated": "2023-10-02T07:38:59.727852Z",
   "generator": "pub",
   "generatorVersion": "3.0.6"
 }
