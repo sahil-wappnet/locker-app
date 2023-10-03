@@ -3,6 +3,7 @@ import 'package:pointycastle/export.dart' as exportpointycastle;
 import 'package:pointycastle/key_generators/rsa_key_generator.dart';
 import 'dart:convert';
 import 'package:convert/convert.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../utils/deriveEncryptionKey_function.dart';
 import '../../utils/functions.dart';
 import '/auth/firebase_auth/auth_util.dart';
@@ -318,27 +319,15 @@ class _LoginWidgetState extends State<LoginWidget> {
                                 '${user.uid!}',
                                 '${_model.emailAddressFieldController.text}');
 
+                            SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+                            sharedPreferences.setString('usersEncreptionKey', bytesToHexString(encryptionKey));
+
                             final userDocRef = FirebaseFirestore.instance
                                 .collection('users')
                                 .doc(user.uid);
 
                             final userDocSnapshot = await userDocRef.get();
-                            final publicKeyExists = userDocSnapshot.exists &&
-                                userDocSnapshot.data() != null &&
-                                userDocSnapshot
-                                    .data()!
-                                    .containsKey('encryptionKey');
-
-                            if (!publicKeyExists) {
-                              final userDocRef = FirebaseFirestore.instance
-                                  .collection('users')
-                                  .doc(user.uid!);
-                              await userDocRef.update({
-                                'encryptionKey':
-                                    bytesToHexString(encryptionKey),
-                              });
-                            }
-
+                            
                             final rsaKeyExists = userDocSnapshot.exists &&
                                 userDocSnapshot.data() != null &&
                                 userDocSnapshot
@@ -377,25 +366,19 @@ class _LoginWidgetState extends State<LoginWidget> {
                               final publicKey = keyPair.publicKey;
                               final privateKey = keyPair.privateKey;
 
-                              log('Generated Public Key:');
                               log(encodePublicKeyToPem(publicKey));
-
-                              log('Generated Private Key:');
                               log(encodePrivateKeyToPem(privateKey));
+                              sharedPreferences.setString('usersPrivateKey',encodePrivateKeyToPem(privateKey));
 
                               final userDocRef = FirebaseFirestore.instance
                                   .collection('users')
                                   .doc(user.uid!);
                               await userDocRef.update({
                                 'public key': encodePublicKeyToPem(publicKey),
-                                'private key': encryptOperation(encodePrivateKeyToPem(privateKey), bytesToHexString(encryptionKey))
-                                // encryptPrivateKey(
-                                //     encodePrivateKeyToPem(privateKey),
-                                //     publicKey,
-                                //     bytesToHexString(encryptionKey)),
+                                // 'private key': encryptPrivateKey(encodePrivateKeyToPem(privateKey),publicKey,bytesToHexString(encryptionKey))
+                                
                               });
                             }
-
                             context.pushNamedAuth(
                                 'veryfication_page', context.mounted);
                           }

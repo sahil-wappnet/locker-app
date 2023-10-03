@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../utils/deriveEncryptionKey_function.dart';
 import '/auth/firebase_auth/auth_util.dart';
@@ -28,7 +29,7 @@ class _AddDocsWidgetState extends State<AddDocsWidget> {
   void initState() {
     super.initState();
     fetchDeviceId();
-    
+
     _model = createModel(context, () => AddDocsModel());
     fetchUserEncryptionKey();
     _model.textController1 ??= TextEditingController();
@@ -40,19 +41,8 @@ class _AddDocsWidgetState extends State<AddDocsWidget> {
   }
 
   void fetchUserEncryptionKey() async {
-    try {
-      final userDocRef =
-          FirebaseFirestore.instance.collection('users').doc(currentUserUid);
-      DocumentSnapshot userSnapshot = await userDocRef.get();
-
-      if (userSnapshot.exists) {
-        Map<String, dynamic> userData =
-            userSnapshot.data() as Map<String, dynamic>;
-        encryptionKey = userData['encryptionKey'];
-      }
-    } catch (e) {
-      print('Error fetching user email: $e');
-    }
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    encryptionKey = sharedPreferences.getString('usersEncreptionKey');
   }
 
   @override
@@ -64,10 +54,9 @@ class _AddDocsWidgetState extends State<AddDocsWidget> {
   fetchDeviceId() async {
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-    deviceId =androidInfo.id;    
+    deviceId = androidInfo.id;
   }
 
-  
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -285,8 +274,7 @@ class _AddDocsWidgetState extends State<AddDocsWidget> {
                                             encryptionKey!),
                                         deviceBinding: bindToDevice,
                                         deviceDetail: encryptOperation(
-                                            deviceId!,
-                                            encryptionKey!)));
+                                            deviceId!, encryptionKey!)));
                               } catch (e1) {
                                 log("message $e1");
                               }

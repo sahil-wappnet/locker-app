@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:locker_app/utils/deriveEncryptionKey_function.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
@@ -46,19 +47,8 @@ class _UpdateDataWidgetState extends State<UpdateDataWidget> {
   }
 
   void fetchUserEncryptionKey() async {
-    try {
-      final userDocRef =
-          FirebaseFirestore.instance.collection('users').doc(currentUserUid);
-      DocumentSnapshot userSnapshot = await userDocRef.get();
-
-      if (userSnapshot.exists) {
-        Map<String, dynamic> userData =
-            userSnapshot.data() as Map<String, dynamic>;
-        encryptionKey = userData['encryptionKey'];
-      }
-    } catch (e) {
-      print('Error fetching user email: $e');
-    }
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    encryptionKey = sharedPreferences.getString('usersEncreptionKey');
   }
 
   fetchDeviceId() async {

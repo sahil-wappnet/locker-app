@@ -102,11 +102,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           path: '/signIn',
           builder: (context, params) => SignInWidget(),
         ),
-        FFRoute(
-          name: 'profile_page',
-          path: '/profilePage',
-          builder: (context, params) => ProfilePageWidget(),
-        ),
+        
         FFRoute(
           name: 'add_docs',
           path: '/addDocs',

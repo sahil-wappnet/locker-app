@@ -2,6 +2,7 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../flutter_flow/flutter_flow_widgets.dart';
+import '../../main.dart';
 import '../../utils/deriveEncryptionKey_function.dart';
 import '../dialogue/custom_dialogue.dart';
 import '/auth/firebase_auth/auth_util.dart';
@@ -39,19 +40,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
   }
 
   void fetchUserEncryptionKey() async {
-    try {
-      final userDocRef =
-          FirebaseFirestore.instance.collection('users').doc(currentUserUid);
-      DocumentSnapshot userSnapshot = await userDocRef.get();
-
-      if (userSnapshot.exists) {
-        Map<String, dynamic> userData =
-            userSnapshot.data() as Map<String, dynamic>;
-        encryptionKey = userData['encryptionKey'];
-      }
-    } catch (e) {
-      print('Error fetching user email: $e');
-    }
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    encryptionKey = sharedPreferences.getString('usersEncreptionKey');
   }
 
   fetchDeviceId() async {
@@ -59,22 +49,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
     AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
     deviceId = androidInfo.id;
   }
-
-  void fetchUserEmail() async {
-    try {
-      final userDocRef =
-          FirebaseFirestore.instance.collection('users').doc(currentUserUid);
-      DocumentSnapshot userSnapshot = await userDocRef.get();
-
-      if (userSnapshot.exists) {
-        Map<String, dynamic> userData =
-            userSnapshot.data() as Map<String, dynamic>;
-        decryptionKey = userData['encryptionKey'];
-      }
-    } catch (e) {
-      print('Error fetching user email: $e');
-    }
-  }
+  
 
   Future<void> clearAllSharedPreferences() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -89,6 +64,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
 
   @override
   Widget build(BuildContext context) {
+   
     return GestureDetector(
       onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
       child: Scaffold(
@@ -357,7 +333,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                         .data() as Map<String, dynamic>;
 
                                     ConstanData.encryptionKey =
-                                        userData['encryptionKey'];
+                                        encryptionKey!;
                                     showDialog(
                                       context: context,
                                       builder: (BuildContext context) {

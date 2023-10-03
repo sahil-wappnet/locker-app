@@ -48,11 +48,6 @@ class _BottomSheet1WidgetState extends State<BottomSheet1Widget> {
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
-  expostdata.RSAPrivateKey parsePrivateKey(String privateKeyPEM) {
-    final rsaParser = RSAKeyParser();
-    final privateKey = rsaParser.parse(privateKeyPEM) as expostdata.RSAPrivateKey;
-    return privateKey;
-  }
 
   @override
   void dispose() {

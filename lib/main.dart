@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
@@ -6,7 +7,6 @@ import 'auth/firebase_auth/auth_util.dart';
 import 'backend/firebase/firebase_config.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 import 'flutter_flow/internationalization.dart';
-import 'flutter_flow/nav/nav.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -47,6 +47,8 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
+  
+
   void setLocale(String language) {
     setState(() => _locale = createLocale(language));
   }
@@ -57,6 +59,9 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    final observer = VerificationScreenObserver(context);
+
+    WidgetsBinding.instance.addObserver(observer);
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       title: 'Locker App',
@@ -75,5 +80,22 @@ class _MyAppState extends State<MyApp> {
       themeMode: _themeMode,
       routerConfig: _router,
     );
+  }
+}
+
+class VerificationScreenObserver extends WidgetsBindingObserver {
+  BuildContext context;
+
+  VerificationScreenObserver(this.context);
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      log("message");
+      // Navigator.of(context).push(MaterialPageRoute(
+      //   builder: (context) =>
+      //       VerificationScreenWidget(), // Use the correct widget
+      // ));
+    }
   }
 }

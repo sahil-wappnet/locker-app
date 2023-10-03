@@ -4,8 +4,10 @@ import 'dart:developer';
 import 'package:encrypt/encrypt.dart';
 import 'package:flutter/material.dart';
 import 'package:locker_app/flutter_flow/flutter_flow_util.dart';
+import 'package:pointycastle/asymmetric/rsa.dart';
 import 'package:pointycastle/export.dart' as expostdata;
 import 'package:pointycastle/impl.dart';
+import 'package:convert/convert.dart';
 
 import '../../../auth/firebase_auth/auth_util.dart';
 import '../../../flutter_flow/flutter_flow_theme.dart';
@@ -134,7 +136,6 @@ class _AddNomineePageDialogState extends State<AddNomineePageDialog> {
             onTap: () async {
               if (formKey.currentState!.validate()) {
                 String text = emailAddressFieldController.text;
-                log("message $text");
                 await fetchNomineePublicKey(text);
               }
             },
@@ -166,25 +167,42 @@ class _AddNomineePageDialogState extends State<AddNomineePageDialog> {
           .get();
       if (querySnapshot.docs.isNotEmpty) {
         final userData = querySnapshot.docs.first.data();
-                final nomineeEmail = userData['email'];
+        final nomineeEmail = userData['email'];
 
         final nomineePublicKeyString = userData['public key'];
-        
-        final nomineePublicKey = parsePublicKey(nomineePublicKeyString);
-                
-        final encryptedData = encryptData(widget.param!, nomineePublicKey);
+
+        // String plaintext = widget.param!;
+        // final rsaPublicKey =
+        //     RSAKeyParser().parse(nomineePublicKeyString) as RSAPublicKey;
+        // final encrypter = RSAEngine()
+        //   ..init(
+        //       true, expostdata.PublicKeyParameter<RSAPublicKey>(rsaPublicKey));
+
+        // final plaintextBytes = Uint8List.fromList(utf8.encode(plaintext));
+        // final encryptedBytes = encrypter.process(plaintextBytes);
+
+        // final encryptedText = base64.encode(encryptedBytes);
+
+        final parser = RSAKeyParser();
+        final publicKey = parser.parse(nomineePublicKeyString) as RSAPublicKey;
+        final encrypter = Encrypter(RSA(publicKey: publicKey));
+        final encryptedData = encrypter.encrypt(widget.param!);
+
+        final encryptedText = hex.encode(encryptedData.bytes);
+
         log("Encryption key is before sending : ${widget.param}");
-        log('Public key : $nomineePublicKeyString');       
-        log('encryptedData : $encryptedData');
-        
-        final sharedWithMeCollection = FirebaseFirestore.instance.collection('shared_with_me');
+        log('Public key : $nomineePublicKeyString');
+        log('before encryptedData : ${widget.param!}');
+        log('after DecryptionData : $encryptedText');
+
+        final sharedWithMeCollection =
+            FirebaseFirestore.instance.collection('shared_with_me');
         await sharedWithMeCollection.add({
           'nominee email': nomineeEmail,
           'users email': currentUserEmail,
-          'shared encryption key': encryptedData
-
+          'shared encryption key': encryptedText
         });
-        
+
         context.pop();
         emailAddressFieldController.clear();
       } else {
@@ -195,7 +213,19 @@ class _AddNomineePageDialogState extends State<AddNomineePageDialog> {
     }
   }
 
-  
+  String decryptData(
+      String encryptedData, expostdata.RSAPrivateKey privateKey) {
+    final cipher = expostdata.RSAEngine()
+      ..init(
+        false,
+        expostdata.PrivateKeyParameter<expostdata.RSAPrivateKey>(privateKey),
+      );
+
+    final cipherText = base64Decode(encryptedData);
+    final decryptedBytes = cipher.process(cipherText);
+    log("${String.fromCharCodes(decryptedBytes)}");
+    return String.fromCharCodes(decryptedBytes);
+  }
 
   String encryptData(String data, expostdata.RSAPublicKey publicKey) {
     final cipher = expostdata.RSAEngine()
@@ -207,19 +237,6 @@ class _AddNomineePageDialogState extends State<AddNomineePageDialog> {
     final Uint8List plainText = Uint8List.fromList(data.codeUnits);
     final cipherText = cipher.process(plainText);
     return base64Encode(cipherText);
-  }
-
-  String decryptData(
-      String encryptedData, expostdata.RSAPrivateKey privateKey) {
-    final cipher = expostdata.RSAEngine()
-      ..init(
-        false, // false for decryption
-        expostdata.PrivateKeyParameter<expostdata.RSAPrivateKey>(privateKey),
-      );
-
-    final cipherText = base64Decode(encryptedData);
-    final decryptedBytes = cipher.process(cipherText);
-    return String.fromCharCodes(decryptedBytes);
   }
 
   RSAPrivateKey parsePrivateKey(String privateKeyPEM) {

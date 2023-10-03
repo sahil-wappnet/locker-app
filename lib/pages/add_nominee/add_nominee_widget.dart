@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:locker_app/pages/add_nominee/add_nominee_model.dart';
 import 'package:locker_app/pages/add_nominee/widgets/add_nominee_dialogue.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../auth/firebase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -26,19 +27,8 @@ class _AddNomineeWidgetState extends State<AddNomineeWidget> {
   }
 
   void fetchUserEncryptionKey() async {
-    try {
-      final userDocRef =
-          FirebaseFirestore.instance.collection('users').doc(currentUserUid);
-      DocumentSnapshot userSnapshot = await userDocRef.get();
-
-      if (userSnapshot.exists) {
-        Map<String, dynamic> userData =
-            userSnapshot.data() as Map<String, dynamic>;
-        encryptionKey = userData['encryptionKey'];
-      }
-    } catch (e) {
-      print('Error fetching user email: $e');
-    }
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    encryptionKey = sharedPreferences.getString('usersEncreptionKey');
   }
 
   @override
@@ -159,7 +149,7 @@ class _AddNomineeWidgetState extends State<AddNomineeWidget> {
                       ),
                     ),
                   );
-                }, gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+                }, gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,childAspectRatio: 0.9),
               );
             },
           )),

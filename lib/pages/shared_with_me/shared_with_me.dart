@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:locker_app/flutter_flow/flutter_flow_util.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../auth/firebase_auth/auth_util.dart';
 import '../../backend/backend.dart';
@@ -20,15 +21,23 @@ class SharedWithMe extends StatefulWidget {
 
 class _SharedWithMeState extends State<SharedWithMe> {
   bool isLoading = false;
+  String? encryptionKey;
   List<String> emails = [];
 
   @override
   void initState() {
+
     fetchEmails();
+    fetchUserEncryptionKey();
     setState(() {
       isLoading = false;
     });
     super.initState();
+  }
+
+  void fetchUserEncryptionKey() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    encryptionKey = sharedPreferences.getString('usersEncreptionKey');
   }
 
   void fetchEmails() async {
@@ -38,19 +47,18 @@ class _SharedWithMeState extends State<SharedWithMe> {
     try {
       final querySnapshot = await FirebaseFirestore.instance
           .collection('shared_with_me')
-          .where('users email', isEqualTo: currentUserEmail)
+          .where('nominee email', isEqualTo: currentUserEmail)
           .get();
 
       for (final doc in querySnapshot.docs) {
-        final email = doc['nominee email'];
+        final email = doc['users email'];
         emails.add(email);
       }
-      log('Emails: $emails');
       setState(() {
         isLoading = false;
       });
     } catch (e) {
-      print('Error fetching emails: $e');
+      log('Error fetching emails: $e');
     }
   }
 
@@ -125,32 +133,19 @@ class _SharedWithMeState extends State<SharedWithMe> {
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
                                     try {
-                                      final userDocRef = FirebaseFirestore
-                                          .instance
-                                          .collection('users')
-                                          .doc(currentUserUid);
-                                      DocumentSnapshot userSnapshot =
-                                          await userDocRef.get();
-
-                                      if (userSnapshot.exists) {
-                                        Map<String, dynamic> userData =
-                                            userSnapshot.data()
-                                                as Map<String, dynamic>;
-
-                                        ConstanData.encryptionKey =
-                                            userData['encryptionKey'];
-                                        showDialog(
-                                          context: context,
-                                          builder: (BuildContext context) {
-                                            return CustomDialog(
-                                              confirmBtnText: 'Submit',
-                                              btnClickOperation: 4,
-                                              param: documents?[listViewIndex]
-                                                  .reference,
-                                            );
-                                          },
-                                        );
-                                      }
+                                      
+                                      ConstanData.encryptionKey = encryptionKey!;
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return CustomDialog(
+                                            confirmBtnText: 'Submit',
+                                            btnClickOperation: 4,
+                                            param: documents?[listViewIndex]
+                                                .reference,
+                                          );
+                                        },
+                                      );
                                     } catch (e) {
                                       print('Error fetching user email: $e');
                                     }

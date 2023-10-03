@@ -38,25 +38,8 @@ class _VerificationScreenWidgetState extends State<VerificationScreenWidget> {
 
 
   void fetchUserEncryptionKey() async {
-    try {
-      final userDocRef =
-          FirebaseFirestore.instance.collection('users').doc(currentUserUid);
-      DocumentSnapshot userSnapshot = await userDocRef.get();
-
-      if (userSnapshot.exists) {
-        Map<String, dynamic> userData =
-            userSnapshot.data() as Map<String, dynamic>;
-        encryptionKey = userData['encryptionKey'];
-      }
-      SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    authPasswordBool = sharedPreferences.getBool('auth_password_bool');
-    if (authPasswordBool == true) {
-      encryptedPassword = sharedPreferences.getString('user_auth_password');
-      log("message ${decryptOperation(encryptedPassword!, encryptionKey!)}");
-    }
-    } catch (e) {
-      log('Error fetching user email: $e');
-    }
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    encryptionKey = sharedPreferences.getString('usersEncreptionKey');
   }
 
   @override
@@ -187,7 +170,6 @@ class _VerificationScreenWidgetState extends State<VerificationScreenWidget> {
                         ).then((value) {
                           log("value is $value");
                           fetchUserEncryptionKey();
-                                                    log("value2 is $value");
                         });
                         initState();
                       } catch (e) {
