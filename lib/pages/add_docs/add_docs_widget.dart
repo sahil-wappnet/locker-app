@@ -41,8 +41,22 @@ class _AddDocsWidgetState extends State<AddDocsWidget> {
   }
 
   void fetchUserEncryptionKey() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    encryptionKey = sharedPreferences.getString('usersEncreptionKey');
+    try {
+      final querySnapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .where('email', isEqualTo: currentUserEmail)
+          .get();
+      if (querySnapshot.docs.isNotEmpty) {
+        final userData = querySnapshot.docs.first.data();
+        encryptionKey = userData['encryption key'];        
+      } else {
+        log('User not found');
+      }
+    } catch (e) {
+      log('Error fetching user data: $e');
+    }
+    // SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    // encryptionKey = sharedPreferences.getString('usersEncreptionKey');
   }
 
   @override

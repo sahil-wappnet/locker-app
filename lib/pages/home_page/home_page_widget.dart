@@ -1,8 +1,9 @@
+import 'dart:developer';
+
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../flutter_flow/flutter_flow_widgets.dart';
-import '../../main.dart';
 import '../../utils/deriveEncryptionKey_function.dart';
 import '../dialogue/custom_dialogue.dart';
 import '/auth/firebase_auth/auth_util.dart';
@@ -40,8 +41,22 @@ class _HomePageWidgetState extends State<HomePageWidget> {
   }
 
   void fetchUserEncryptionKey() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    encryptionKey = sharedPreferences.getString('usersEncreptionKey');
+    try {
+      final querySnapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .where('email', isEqualTo: currentUserEmail)
+          .get();
+      if (querySnapshot.docs.isNotEmpty) {
+        final userData = querySnapshot.docs.first.data();
+        encryptionKey = userData['encryption key'];        
+      } else {
+        log('User not found');
+      }
+    } catch (e) {
+      log('Error fetching user data: $e');
+    }
+    // SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    // encryptionKey = sharedPreferences.getString('usersEncreptionKey');
   }
 
   fetchDeviceId() async {

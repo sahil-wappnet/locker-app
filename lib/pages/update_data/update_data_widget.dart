@@ -1,7 +1,6 @@
 import 'dart:developer';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:locker_app/utils/deriveEncryptionKey_function.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../../auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
@@ -47,8 +46,22 @@ class _UpdateDataWidgetState extends State<UpdateDataWidget> {
   }
 
   void fetchUserEncryptionKey() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    encryptionKey = sharedPreferences.getString('usersEncreptionKey');
+    try {
+      final querySnapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .where('email', isEqualTo: currentUserEmail)
+          .get();
+      if (querySnapshot.docs.isNotEmpty) {
+        final userData = querySnapshot.docs.first.data();
+        encryptionKey = userData['encryption key'];        
+      } else {
+        log('User not found');
+      }
+    } catch (e) {
+      log('Error fetching user data: $e');
+    }
+    // SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    // encryptionKey = sharedPreferences.getString('usersEncreptionKey');
   }
 
   fetchDeviceId() async {
@@ -70,8 +83,12 @@ class _UpdateDataWidgetState extends State<UpdateDataWidget> {
     try {
       final snapshot = await widget.dataRef!.get();
       if (snapshot.exists) {
+
         setState(() {
           detailData = DetailDataRecord.fromSnapshot(snapshot);
+                  log('ConstanData.encryptionKey: ${ConstanData.encryptionKey} ${detailData!.dataTitle}');
+                  log('ConstanData.encryptionKey: ${ConstanData.encryptionKey} ${detailData!.dataDescription}');
+
           bindToDevice = detailData?.dataDeviceBinding;
           textController = TextEditingController(text: detailData?.displayTitle);
           textController1 = TextEditingController(

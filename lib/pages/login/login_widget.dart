@@ -319,8 +319,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                                 '${user.uid!}',
                                 '${_model.emailAddressFieldController.text}');
 
-                            SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-                            sharedPreferences.setString('usersEncreptionKey', bytesToHexString(encryptionKey));
+                            // SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+                            // sharedPreferences.setString('usersEncreptionKey', bytesToHexString(encryptionKey));
 
                             final userDocRef = FirebaseFirestore.instance
                                 .collection('users')
@@ -368,13 +368,14 @@ class _LoginWidgetState extends State<LoginWidget> {
 
                               log(encodePublicKeyToPem(publicKey));
                               log(encodePrivateKeyToPem(privateKey));
-                              sharedPreferences.setString('usersPrivateKey',encodePrivateKeyToPem(privateKey));
+                              // sharedPreferences.setString('usersPrivateKey',encodePrivateKeyToPem(privateKey));
 
                               final userDocRef = FirebaseFirestore.instance
                                   .collection('users')
                                   .doc(user.uid!);
                               await userDocRef.update({
                                 'public key': encodePublicKeyToPem(publicKey),
+                                'encryption key': bytesToHexString(encryptionKey)
                                 // 'private key': encryptPrivateKey(encodePrivateKeyToPem(privateKey),publicKey,bytesToHexString(encryptionKey))
                                 
                               });

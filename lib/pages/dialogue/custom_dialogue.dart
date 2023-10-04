@@ -1,3 +1,4 @@
+
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -149,8 +150,7 @@ class _CustomDialogState extends State<CustomDialog> {
 
                 final encryptionKey = await deriveEncryptionKey(
                     enteredText, currentUserUid, currentUserEmail);
-                log("1: ${bytesToHexString(encryptionKey)}");
-                log("2: ${ConstanData.encryptionKey}");
+                
                 if (bytesToHexString(encryptionKey) ==
                     ConstanData.encryptionKey) {
                   if (widget.btnClickOperation == 1) {
@@ -202,6 +202,7 @@ class _CustomDialogState extends State<CustomDialog> {
                             ),
                           );
                   } else if (widget.btnClickOperation == 4) {
+                    log("message ${widget.param}");
                     context.pushNamed(
                       'nominee_data',
                       queryParameters: {

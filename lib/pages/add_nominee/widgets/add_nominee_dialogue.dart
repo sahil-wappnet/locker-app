@@ -4,10 +4,8 @@ import 'dart:developer';
 import 'package:encrypt/encrypt.dart';
 import 'package:flutter/material.dart';
 import 'package:locker_app/flutter_flow/flutter_flow_util.dart';
-import 'package:pointycastle/asymmetric/rsa.dart';
 import 'package:pointycastle/export.dart' as expostdata;
 import 'package:pointycastle/impl.dart';
-import 'package:convert/convert.dart';
 
 import '../../../auth/firebase_auth/auth_util.dart';
 import '../../../flutter_flow/flutter_flow_theme.dart';
@@ -28,6 +26,7 @@ class _AddNomineePageDialogState extends State<AddNomineePageDialog> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final formKey = GlobalKey<FormState>();
   final emailAddressFieldController = TextEditingController();
+  String? encryptionKey;
 
   @override
   Widget build(BuildContext context) {
@@ -100,7 +99,6 @@ class _AddNomineePageDialogState extends State<AddNomineePageDialog> {
                 if (value == null || value.isEmpty) {
                   return "Email is required";
                 }
-                // You can add more validation rules here if needed.
                 return null;
               },
             ),
@@ -136,7 +134,9 @@ class _AddNomineePageDialogState extends State<AddNomineePageDialog> {
             onTap: () async {
               if (formKey.currentState!.validate()) {
                 String text = emailAddressFieldController.text;
-                await fetchNomineePublicKey(text);
+                context.pop();
+                fetchUserEncryptionKey(text);
+                // await fetchNomineePublicKey(text);
               }
             },
             child: Container(
@@ -159,6 +159,26 @@ class _AddNomineePageDialogState extends State<AddNomineePageDialog> {
     );
   }
 
+  void fetchUserEncryptionKey(String text) async {
+    try {
+      final querySnapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .where('email', isEqualTo: currentUserEmail)
+          .get();
+      if (querySnapshot.docs.isNotEmpty) {
+        final userData = querySnapshot.docs.first.data();
+        encryptionKey = userData['encryption key'];
+        fetchNomineePublicKey(text);
+      } else {
+        log('User not found');
+      }
+    } catch (e) {
+      log('Error fetching user data: $e');
+    }
+    // SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    // encryptionKey = sharedPreferences.getString('usersEncreptionKey');
+  }
+
   Future<void> fetchNomineePublicKey(String email) async {
     try {
       final querySnapshot = await FirebaseFirestore.instance
@@ -169,7 +189,7 @@ class _AddNomineePageDialogState extends State<AddNomineePageDialog> {
         final userData = querySnapshot.docs.first.data();
         final nomineeEmail = userData['email'];
 
-        final nomineePublicKeyString = userData['public key'];
+        final nomineeEncrptionString = encryptionKey;
 
         // String plaintext = widget.param!;
         // final rsaPublicKey =
@@ -183,32 +203,56 @@ class _AddNomineePageDialogState extends State<AddNomineePageDialog> {
 
         // final encryptedText = base64.encode(encryptedBytes);
 
-        final parser = RSAKeyParser();
-        final publicKey = parser.parse(nomineePublicKeyString) as RSAPublicKey;
-        final encrypter = Encrypter(RSA(publicKey: publicKey));
-        final encryptedData = encrypter.encrypt(widget.param!);
+        // final parser = RSAKeyParser();
+        // final publicKey = parser.parse(nomineePublicKeyString) as RSAPublicKey;
+        // final encrypter = Encrypter(RSA(publicKey: publicKey));
+        // final encryptedData = encrypter.encrypt(widget.param!);
 
-        final encryptedText = hex.encode(encryptedData.bytes);
+        // final encryptedText = hex.encode(encryptedData.bytes);
 
-        log("Encryption key is before sending : ${widget.param}");
-        log('Public key : $nomineePublicKeyString');
-        log('before encryptedData : ${widget.param!}');
-        log('after DecryptionData : $encryptedText');
+        // log("Encryption key is before sending : ${widget.param}");
+        // log('Public key : $nomineePublicKeyString');
+        // log('before encryptedData : ${widget.param!}');
+        // log('after DecryptionData : $encryptedText');
 
         final sharedWithMeCollection =
             FirebaseFirestore.instance.collection('shared_with_me');
         await sharedWithMeCollection.add({
           'nominee email': nomineeEmail,
           'users email': currentUserEmail,
-          'shared encryption key': encryptedText
+          'shared encryption key': nomineeEncrptionString
         });
-
-        context.pop();
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              'Nominee added successfully',
+              style: TextStyle(
+                color: FlutterFlowTheme.of(context).primaryText,
+              ),
+            ),
+            duration: Duration(milliseconds: 4000),
+            backgroundColor: FlutterFlowTheme.of(context).secondary,
+          ),
+        );
         emailAddressFieldController.clear();
       } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              'User not found!',
+            ),
+          ),
+        );
         log('User not found');
       }
     } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            'Error fetching user data: $e',
+          ),
+        ),
+      );
       log('Error fetching user data: $e');
     }
   }

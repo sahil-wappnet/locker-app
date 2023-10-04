@@ -1,17 +1,11 @@
 import 'dart:developer';
 
-import 'package:encrypt/encrypt.dart';
-import 'package:pointycastle/asymmetric/api.dart';
-import 'package:pointycastle/export.dart' as expostdata;
 import 'package:locker_app/utils/deriveEncryptionKey_function.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../../auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-
 
 class NomineeData extends StatefulWidget {
   const NomineeData({
@@ -24,15 +18,13 @@ class NomineeData extends StatefulWidget {
 }
 
 class _NomineeDataState extends State<NomineeData> {
-  String? privateKeyPem;
   String? encryptedEnencryptionKey;
 
   bool isDataFetched = false;
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  String? encryptionKey;
   String? deviceId;
   DetailDataRecord? detailData;
-  expostdata.RSAPrivateKey? rsaPrivateKey;
+  // expostdata.RSAPrivateKey? rsaPrivateKey;
   bool? bindToDevice = false;
   String? nomineeDecryptedKey;
 
@@ -49,26 +41,22 @@ class _NomineeDataState extends State<NomineeData> {
     setState(() {
       isDataFetched = true;
     });
-    fetchUserPrivateKey();
-
-    // fetchAndStoreData();
-    setState(() {
-      isDataFetched = false;
-    });
-  }
-
-  void fetchUserPrivateKey() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    privateKeyPem = sharedPreferences.getString('usersPrivateKey');
-    log("Private Key : $privateKeyPem");
+    // fetchUserPrivateKey();
     fetchSharedEncryptedKey();
   }
+
+  // void fetchUserPrivateKey() async {
+  //   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  //   privateKeyPem = sharedPreferences.getString('usersPrivateKey');
+  //   log("Private Key : $privateKeyPem");
+  //   fetchSharedEncryptedKey();
+  // }
 
   void fetchSharedEncryptedKey() async {
     try {
       final userDocRef = FirebaseFirestore.instance
           .collection('shared_with_me')
-          .where('users email', isEqualTo: currentUserEmail);
+          .where('nominee email', isEqualTo: currentUserEmail);
       QuerySnapshot userSnapshot = await userDocRef.get();
 
       if (userSnapshot.docs.isNotEmpty) {
@@ -77,10 +65,11 @@ class _NomineeDataState extends State<NomineeData> {
 
         encryptedEnencryptionKey = userData['shared encryption key'];
         log("Shared Encryption Key: $encryptedEnencryptionKey");
+        fetchAndStoreData();
 
         // nomineeDecryptedKey =
-            decryptData(encryptedEnencryptionKey!, privateKeyPem!);
-        log("nomineeDe : $nomineeDecryptedKey");
+        // decryptData(encryptedEnencryptionKey!, privateKeyPem!);
+        // log("nomineeDe : $nomineeDecryptedKey");
       } else {
         print("No document found'");
       }
@@ -89,22 +78,22 @@ class _NomineeDataState extends State<NomineeData> {
     }
   }
 
-  Future<String> decryptData(String encryptedText, String privateKeyPem) async {
-    // log("in decrypt function");
-    // final parser = RSAKeyParser();
-    // final privateKey = parser.parse(privateKeyPem) as RSAPrivateKey;
-    // final decrypter = Encrypter(RSA(privateKey: privateKey));
-    // final encryptedData = Encrypted(Uint8List.fromList(hex.decode(encryptedText)));
-    // final decryptedData = decrypter.decrypt(encryptedData);
-    // return decryptedData;
-    final parser = RSAKeyParser();
-    final privateKey = parser.parse(privateKeyPem) as RSAPrivateKey;
-    
-    final encrypter = Encrypter(RSA(privateKey: privateKey));
-    final encryptedData = Encrypted.fromBase64(encryptedText);
-    
-    final decryptedData = encrypter.decrypt(encryptedData);
-return decryptedData;
+  // Future<String> decryptData(String encryptedText, String privateKeyPem) async {
+  // log("in decrypt function");
+  // final parser = RSAKeyParser();
+  // final privateKey = parser.parse(privateKeyPem) as RSAPrivateKey;
+  // final decrypter = Encrypter(RSA(privateKey: privateKey));
+  // final encryptedData = Encrypted(Uint8List.fromList(hex.decode(encryptedText)));
+  // final decryptedData = decrypter.decrypt(encryptedData);
+  // return decryptedData;
+//     final parser = RSAKeyParser();
+//     final privateKey = parser.parse(privateKeyPem) as RSAPrivateKey;
+
+//     final encrypter = Encrypter(RSA(privateKey: privateKey));
+//     final encryptedData = Encrypted.fromBase64(encryptedText);
+
+//     final decryptedData = encrypter.decrypt(encryptedData);
+// return decryptedData;
   //   final rsaPrivateKey = RSAKeyParser().parse(privateKeyPem) as RSAPrivateKey;
   //   final decrypter = RSAEngine()
   //     ..init(false, expostdata.PrivateKeyParameter<RSAPrivateKey>(rsaPrivateKey));
@@ -123,7 +112,7 @@ return decryptedData;
   //   print('Step 2: Decrypted data is not valid UTF-8 text.');
   //   return ''; // Return an empty string or handle the binary data as needed
   // }
-  }
+  // }
 
 //   bool isValidUtf8(List<int> bytes) {
 //   for (int i = 0; i < bytes.length; i++) {
@@ -158,18 +147,13 @@ return decryptedData;
   //   return String.fromCharCodes(decryptedBytes);
   // }
 
-  expostdata.RSAPrivateKey parsePrivateKey(String privateKeyPEM) {
-    final rsaParser = RSAKeyParser();
-    final privateKey =
-        rsaParser.parse(privateKeyPEM) as expostdata.RSAPrivateKey;
-    return privateKey;
-  }
+  // expostdata.RSAPrivateKey parsePrivateKey(String privateKeyPEM) {
+  //   final rsaParser = RSAKeyParser();
+  //   final privateKey =
+  //       rsaParser.parse(privateKeyPEM) as expostdata.RSAPrivateKey;
+  //   return privateKey;
+  // }
 
-  
-
-  
-
-  
   @override
   void dispose() {
     unfocusNode.dispose();
@@ -188,17 +172,17 @@ return decryptedData;
           bindToDevice = detailData?.dataDeviceBinding;
           textController =
               TextEditingController(text: detailData?.displayTitle);
-          textController1 = TextEditingController(
-              text: decryptOperation(
-                  detailData!.dataTitle, nomineeDecryptedKey!));
-          textController2 = TextEditingController(
-              text: decryptOperation(
-                  detailData!.dataDescription, nomineeDecryptedKey!));
+          textController1 = TextEditingController(text: decryptOperation(detailData!.dataTitle,encryptedEnencryptionKey!));
+          textController2 =
+              TextEditingController(text: decryptOperation(detailData!.dataDescription,encryptedEnencryptionKey!));
         });
       }
     } catch (e) {
       log('Error fetching data: $e');
     }
+    setState(() {
+      isDataFetched = false;
+    });
   }
 
   @override
@@ -253,6 +237,7 @@ return decryptedData;
                           autofocus: true,
                           textInputAction: TextInputAction.next,
                           obscureText: false,
+                          readOnly: true,
                           decoration: InputDecoration(
                             labelText: 'Title to Display',
                             labelStyle:
@@ -301,6 +286,7 @@ return decryptedData;
                           autofocus: true,
                           textInputAction: TextInputAction.next,
                           obscureText: false,
+                          readOnly: true,
                           decoration: InputDecoration(
                             labelText: 'Secure information Title',
                             labelStyle:
@@ -348,6 +334,7 @@ return decryptedData;
                           controller: textController2,
                           autofocus: true,
                           obscureText: false,
+                          readOnly: true,
                           decoration: InputDecoration(
                             labelText: 'Secure information Description',
                             labelStyle:
@@ -385,66 +372,68 @@ return decryptedData;
                           style: FlutterFlowTheme.of(context).bodyMedium,
                         ),
                       ),
-                      Row(
-                        children: [
-                          Checkbox(
-                            value: bindToDevice,
-                            onChanged: (value) {
-                              setState(() {
-                                bindToDevice = value!;
-                                log("value is : $bindToDevice");
-                              });
-                            },
-                          ),
-                          Text('Bind to this device'),
-                        ],
-                      ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            10.0, 20.0, 10.0, 0.0),
-                        child: FFButtonWidget(
-                          onPressed: () async {
-                            log(" text is ${textController1!.text}");
-                            if (formKey.currentState!.validate()) {
-                              await widget.dataRef!.update(
-                                createDetailDataRecordData(
-                                    userId: currentUserUid,
-                                    displayTitle: textController!.text,
-                                    dataTitle: encryptOperation(
-                                        textController1!.text, encryptionKey!),
-                                    dataDescription: encryptOperation(
-                                        textController2!.text, encryptionKey!),
-                                    deviceBinding: bindToDevice,
-                                    deviceDetail: encryptOperation(
-                                        deviceId!, encryptionKey!)),
-                              );
-                              Navigator.of(context).pop();
-                            }
-                          },
-                          text: 'Update',
-                          options: FFButtonOptions(
-                            width: double.infinity,
-                            height: 40.0,
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                24.0, 0.0, 24.0, 0.0),
-                            iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 0.0),
-                            color: FlutterFlowTheme.of(context).primary,
-                            textStyle: FlutterFlowTheme.of(context)
-                                .titleSmall
-                                .override(
-                                  fontFamily: 'Roboto Slab',
-                                  color: Colors.white,
-                                ),
-                            elevation: 3.0,
-                            borderSide: BorderSide(
-                              color: Colors.transparent,
-                              width: 1.0,
-                            ),
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                        ),
-                      ),
+                      // Row(
+                      //   children: [
+                      //     Checkbox(
+                      //       value: bindToDevice,
+                      //       onChanged: (value) {
+                      //         setState(() {
+                      //           bindToDevice = value!;
+                      //           log("value is : $bindToDevice");
+                      //         });
+                      //       },
+                      //     ),
+                      //     Text('Bind to this device'),
+                      //   ],
+                      // ),
+                      // Padding(
+                      //   padding: EdgeInsetsDirectional.fromSTEB(
+                      //       10.0, 20.0, 10.0, 0.0),
+                      //   child: FFButtonWidget(
+                      //     onPressed: () async {
+                      //       log(" text is ${textController1!.text}");
+                      //       if (formKey.currentState!.validate()) {
+                      //         await widget.dataRef!.update(
+                      //           createDetailDataRecordData(
+                      //               userId: currentUserUid,
+                      //               displayTitle: textController!.text,
+                      //               dataTitle: decryptOperation(
+                      //                   textController1!.text,
+                      //                   encryptedEnencryptionKey!),
+                      //               dataDescription: decryptOperation(
+                      //                   textController2!.text,
+                      //                   encryptedEnencryptionKey!),
+                      //               deviceBinding: bindToDevice,
+                      //               deviceDetail: decryptOperation(
+                      //                   deviceId!, encryptedEnencryptionKey!)),
+                      //         );
+                      //         Navigator.of(context).pop();
+                      //       }
+                      //     },
+                      //     text: 'Update',
+                      //     options: FFButtonOptions(
+                      //       width: double.infinity,
+                      //       height: 40.0,
+                      //       padding: EdgeInsetsDirectional.fromSTEB(
+                      //           24.0, 0.0, 24.0, 0.0),
+                      //       iconPadding: EdgeInsetsDirectional.fromSTEB(
+                      //           0.0, 0.0, 0.0, 0.0),
+                      //       color: FlutterFlowTheme.of(context).primary,
+                      //       textStyle: FlutterFlowTheme.of(context)
+                      //           .titleSmall
+                      //           .override(
+                      //             fontFamily: 'Roboto Slab',
+                      //             color: Colors.white,
+                      //           ),
+                      //       elevation: 3.0,
+                      //       borderSide: BorderSide(
+                      //         color: Colors.transparent,
+                      //         width: 1.0,
+                      //       ),
+                      //       borderRadius: BorderRadius.circular(8.0),
+                      //     ),
+                      //   ),
+                      // ),
                     ],
                   ),
                 )
